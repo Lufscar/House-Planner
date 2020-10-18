@@ -16,7 +16,7 @@ OPENPAR:        '(';
 CLOSEPAR:       ')';
 
 map:
-	CONSTRUCTION BLOCKNAME IS declaration build* EOF;
+	CONSTRUCTION BLOCKNAME IS declaration* build* cmdBuildHouse EOF;
 
 declaration:
 	DECLARE IDENTIFIER AS type SEMICOLON	|

@@ -1,0 +1,18 @@
+# este é o teste 1
+
+construction apartamento is
+
+set AreaDeServico;
+declare _sala as LivingRoom;
+declare _quartoCasal as Bedroom; 
+define _area as 55.4
+define _areaServico as AreaDeServico;
+
+importArea(_banheiro);
+addRoom(_sala, _quartoCasal);
+createAlert('Nao esqueca de adicionar todos os comodos');
+addRoom(_banheiro);
+addRoom(_areaServico);
+createAlert('Area maior que ' _area);
+subRoom(_areaServico);
+buildHouse();

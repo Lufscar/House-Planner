@@ -24,6 +24,18 @@ public class Planner {
         HPLexer lex = new HPLexer(cs);
         Token t = null;
         while ((t = lex.nextToken()).getType() != Token.EOF){
+            if (lex.VOCABULARY.getDisplayName(t.getType()) == "ERRO_SIMB") {
+
+                // Identifica o erro e para todo o processo
+                outFile.write("Linha " + t.getLine() + ": " + t.getText() + " - simbolo nao identificado\n");
+                break;
+            }
+            if (lex.VOCABULARY.getDisplayName(t.getType()) == "ERRO_CAD") {
+
+                // Identifica o erro e para todo o processo
+                outFile.write("Linha " + t.getLine() + ": cadeia literal nao fechada\n");
+                break;
+            }
             outFile.write("<" + lex.VOCABULARY.getDisplayName(t.getType()) + "," + t.getText() + ">\n");
         }
         outFile.close();

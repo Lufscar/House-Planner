@@ -32,13 +32,15 @@ NUMBER:
 	[0-9]+ '.' [0-9]+;
 
 STRING:
-	'\'' ( ESC_SEQ | ~('\''|'\\') )* '\'';
-	
-fragment
-ESC_SEQ: '\\\'';
+	'\'' (~('\n'))*? '\'';
 
 COMMENT:'#' ~('\n'|'\r')* '\r'? '\n' -> skip;
 WHITESPACE: ( ' ' |'\t' | '\r' | '\n') -> skip;
+
+ERRO_CAD:
+    '\'' (~('\''))*? '\n';
+ERRO_SIMB:
+    .?;
 
 build:
 	cmdImport		|
@@ -48,16 +50,18 @@ build:
 	cmdBuildHouse;
 
 cmdImport:
-	'import(' IDENTIFIER ')' ';';
+	'import' '(' IDENTIFIER ')' ';';
 
 cmdAddRoom:
-	'addRoom(' IDENTIFIER (',' IDENTIFIER)* ')' ';';
+	'addRoom' '(' IDENTIFIER (',' IDENTIFIER)* ')' ';';
 
 cmdSubRoom:
-	'subRoom(' IDENTIFIER (',' IDENTIFIER)* ')' ';';
+	'subRoom' '(' IDENTIFIER (',' IDENTIFIER)* ')' ';';
 
 cmdCreateAlert:
-	'createAlert(' (STRING | IDENTIFIER | NUMBER)+ ')' ';';
+	'createAlert' '(' (STRING | IDENTIFIER | NUMBER)+ ')' ';';
 
 cmdBuildHouse:
-	'buildHouse()' ';';
+	'buildHouse' '(' ')' ';';
+
+

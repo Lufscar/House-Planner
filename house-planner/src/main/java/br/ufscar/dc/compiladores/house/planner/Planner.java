@@ -1,0 +1,31 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package br.ufscar.dc.compiladores.house.planner;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.Token;
+
+/**
+ *
+ * @author Vinicius Peixoto
+ */
+public class Planner {
+    public static void main(String args[]) throws IOException{
+        
+        FileWriter outFile = new FileWriter(args[1]);
+        
+        CharStream cs = CharStreams.fromFileName(args[0]);
+        HPLexer lex = new HPLexer(cs);
+        Token t = null;
+        while ((t = lex.nextToken()).getType() != Token.EOF){
+            outFile.write("<" + lex.VOCABULARY.getDisplayName(t.getType()) + "," + t.getText() + ">\n");
+        }
+        outFile.close();
+    }
+}

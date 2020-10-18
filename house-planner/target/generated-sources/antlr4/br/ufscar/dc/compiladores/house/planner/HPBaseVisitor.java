@@ -59,7 +59,7 @@ public class HPBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements HPV
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitCmdImport(HPParser.CmdImportContext ctx) { return visitChildren(ctx); }
+	@Override public T visitCmdImportArea(HPParser.CmdImportAreaContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

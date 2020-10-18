@@ -88,13 +88,13 @@ public class HPBaseListener implements HPListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCmdImport(HPParser.CmdImportContext ctx) { }
+	@Override public void enterCmdImportArea(HPParser.CmdImportAreaContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCmdImport(HPParser.CmdImportContext ctx) { }
+	@Override public void exitCmdImportArea(HPParser.CmdImportAreaContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

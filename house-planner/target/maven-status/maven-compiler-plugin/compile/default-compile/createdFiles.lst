@@ -1,4 +1,5 @@
 br\ufscar\dc\compiladores\house\planner\HPParser$CmdAddRoomContext.class
+br\ufscar\dc\compiladores\house\planner\HPParser$CmdImportAreaContext.class
 br\ufscar\dc\compiladores\house\planner\HPParser$BasicTypeContext.class
 br\ufscar\dc\compiladores\house\planner\HPParser$NewTypeContext.class
 br\ufscar\dc\compiladores\house\planner\HPParser$DeclarationContext.class
@@ -13,5 +14,4 @@ br\ufscar\dc\compiladores\house\planner\HPBaseVisitor.class
 br\ufscar\dc\compiladores\house\planner\HPLexer.class
 br\ufscar\dc\compiladores\house\planner\HPParser$CmdSubRoomContext.class
 br\ufscar\dc\compiladores\house\planner\HPListener.class
-br\ufscar\dc\compiladores\house\planner\HPParser$CmdImportContext.class
 br\ufscar\dc\compiladores\house\planner\HPVisitor.class

@@ -1,18 +1,36 @@
 grammar HP;
 
+/* PALAVRAS RESERVADAS */
+
+CONSTRUCTION:   'construction';
+IS:             'is';
+DECLARE:        'declare';
+AS:             'as';
+DEFINE:         'define';
+SET:            'set';
+
+/* TOKEN */
+SEMICOLON:      ';';
+UNDERSCORE:     '_';
+OPENPAR:        '(';
+CLOSEPAR:       ')';
+
 map:
-	'construction' 'is' declaration build* EOF;
+	CONSTRUCTION BLOCKNAME IS declaration build* EOF;
 
 declaration:
-	'declare' IDENTIFIER 'as' type ';'	|
-	'define' IDENTIFIER 'as' NUMBER		|
-	'set' USERTYPE ';';
+	DECLARE IDENTIFIER AS type SEMICOLON	|
+	DEFINE IDENTIFIER AS NUMBER		|
+	SET USERTYPE SEMICOLON;
 	
 IDENTIFIER:
-	'_' [a-z][0-9a-zA-Z_]*;
+	UNDERSCORE [a-z][0-9a-zA-Z_]*;
 
 USERTYPE:
 	[A-Z][a-zA-Z]*;
+
+BLOCKNAME:
+        [a-z]+;
 
 type:
 	newType	|
@@ -43,25 +61,25 @@ ERRO_SIMB:
     .?;
 
 build:
-	cmdImport		|
+	cmdImportArea		|
 	cmdAddRoom		|
 	cmdSubRoom		|
 	cmdCreateAlert          |
 	cmdBuildHouse;
 
-cmdImport:
-	'import' '(' IDENTIFIER ')' ';';
+cmdImportArea:
+	'importArea' OPENPAR IDENTIFIER CLOSEPAR SEMICOLON;
 
 cmdAddRoom:
-	'addRoom' '(' IDENTIFIER (',' IDENTIFIER)* ')' ';';
+	'addRoom' OPENPAR IDENTIFIER (',' IDENTIFIER)* CLOSEPAR SEMICOLON;
 
 cmdSubRoom:
-	'subRoom' '(' IDENTIFIER (',' IDENTIFIER)* ')' ';';
+	'subRoom' OPENPAR IDENTIFIER (',' IDENTIFIER)* CLOSEPAR SEMICOLON;
 
 cmdCreateAlert:
-	'createAlert' '(' (STRING | IDENTIFIER | NUMBER)+ ')' ';';
+	'createAlert' OPENPAR (STRING | IDENTIFIER | NUMBER)+ CLOSEPAR SEMICOLON;
 
 cmdBuildHouse:
-	'buildHouse' '(' ')' ';';
+	'buildHouse' OPENPAR CLOSEPAR SEMICOLON;
 
 

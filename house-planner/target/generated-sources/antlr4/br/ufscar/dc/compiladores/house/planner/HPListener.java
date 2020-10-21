@@ -68,15 +68,15 @@ public interface HPListener extends ParseTreeListener {
 	 */
 	void exitBuild(HPParser.BuildContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HPParser#cmdImportArea}.
+	 * Enter a parse tree produced by {@link HPParser#cmdMeasureArea}.
 	 * @param ctx the parse tree
 	 */
-	void enterCmdImportArea(HPParser.CmdImportAreaContext ctx);
+	void enterCmdMeasureArea(HPParser.CmdMeasureAreaContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HPParser#cmdImportArea}.
+	 * Exit a parse tree produced by {@link HPParser#cmdMeasureArea}.
 	 * @param ctx the parse tree
 	 */
-	void exitCmdImportArea(HPParser.CmdImportAreaContext ctx);
+	void exitCmdMeasureArea(HPParser.CmdMeasureAreaContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link HPParser#cmdAddRoom}.
 	 * @param ctx the parse tree

@@ -1,11 +1,11 @@
 br\ufscar\dc\compiladores\house\planner\HPParser$CmdAddRoomContext.class
-br\ufscar\dc\compiladores\house\planner\HPParser$CmdImportAreaContext.class
 br\ufscar\dc\compiladores\house\planner\HPParser$BasicTypeContext.class
 br\ufscar\dc\compiladores\house\planner\HPParser$NewTypeContext.class
 br\ufscar\dc\compiladores\house\planner\HPParser$DeclarationContext.class
 br\ufscar\dc\compiladores\house\planner\HPParser$CmdCreateAlertContext.class
 br\ufscar\dc\compiladores\house\planner\HPParser$BuildContext.class
 br\ufscar\dc\compiladores\house\planner\HPParser.class
+br\ufscar\dc\compiladores\house\planner\HPParser$CmdMeasureAreaContext.class
 br\ufscar\dc\compiladores\house\planner\HPParser$CmdBuildHouseContext.class
 br\ufscar\dc\compiladores\house\planner\HPBaseListener.class
 br\ufscar\dc\compiladores\house\planner\HPParser$TypeContext.class

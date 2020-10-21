@@ -24,11 +24,11 @@ public class HPParser extends Parser {
 		ERRO_SIMB=29;
 	public static final int
 		RULE_map = 0, RULE_declaration = 1, RULE_type = 2, RULE_basicType = 3, 
-		RULE_newType = 4, RULE_build = 5, RULE_cmdImportArea = 6, RULE_cmdAddRoom = 7, 
+		RULE_newType = 4, RULE_build = 5, RULE_cmdMeasureArea = 6, RULE_cmdAddRoom = 7, 
 		RULE_cmdSubRoom = 8, RULE_cmdCreateAlert = 9, RULE_cmdBuildHouse = 10;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"map", "declaration", "type", "basicType", "newType", "build", "cmdImportArea", 
+			"map", "declaration", "type", "basicType", "newType", "build", "cmdMeasureArea", 
 			"cmdAddRoom", "cmdSubRoom", "cmdCreateAlert", "cmdBuildHouse"
 		};
 	}
@@ -113,17 +113,17 @@ public class HPParser extends Parser {
 		public DeclarationContext declaration(int i) {
 			return getRuleContext(DeclarationContext.class,i);
 		}
-		public List<BuildContext> build() {
-			return getRuleContexts(BuildContext.class);
-		}
-		public BuildContext build(int i) {
-			return getRuleContext(BuildContext.class,i);
-		}
 		public List<CmdBuildHouseContext> cmdBuildHouse() {
 			return getRuleContexts(CmdBuildHouseContext.class);
 		}
 		public CmdBuildHouseContext cmdBuildHouse(int i) {
 			return getRuleContext(CmdBuildHouseContext.class,i);
+		}
+		public List<BuildContext> build() {
+			return getRuleContexts(BuildContext.class);
+		}
+		public BuildContext build(int i) {
+			return getRuleContext(BuildContext.class,i);
 		}
 		public MapContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -171,26 +171,26 @@ public class HPParser extends Parser {
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(34);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__4) | (1L << T__5) | (1L << T__7) | (1L << T__8))) != 0)) {
-				{
-				{
-				setState(31);
-				build();
-				}
-				}
-				setState(36);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-			}
 			setState(40);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==T__9) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__4) | (1L << T__5) | (1L << T__7) | (1L << T__8) | (1L << T__9))) != 0)) {
 				{
 				{
+				setState(34);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__4) | (1L << T__5) | (1L << T__7) | (1L << T__8))) != 0)) {
+					{
+					{
+					setState(31);
+					build();
+					}
+					}
+					setState(36);
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+				}
 				setState(37);
 				cmdBuildHouse();
 				}
@@ -464,8 +464,8 @@ public class HPParser extends Parser {
 	}
 
 	public static class BuildContext extends ParserRuleContext {
-		public CmdImportAreaContext cmdImportArea() {
-			return getRuleContext(CmdImportAreaContext.class,0);
+		public CmdMeasureAreaContext cmdMeasureArea() {
+			return getRuleContext(CmdMeasureAreaContext.class,0);
 		}
 		public CmdAddRoomContext cmdAddRoom() {
 			return getRuleContext(CmdAddRoomContext.class,0);
@@ -506,7 +506,7 @@ public class HPParser extends Parser {
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(68);
-				cmdImportArea();
+				cmdMeasureArea();
 				}
 				break;
 			case T__5:
@@ -545,33 +545,33 @@ public class HPParser extends Parser {
 		return _localctx;
 	}
 
-	public static class CmdImportAreaContext extends ParserRuleContext {
+	public static class CmdMeasureAreaContext extends ParserRuleContext {
 		public TerminalNode OPENPAR() { return getToken(HPParser.OPENPAR, 0); }
 		public TerminalNode IDENTIFIER() { return getToken(HPParser.IDENTIFIER, 0); }
 		public TerminalNode CLOSEPAR() { return getToken(HPParser.CLOSEPAR, 0); }
 		public TerminalNode SEMICOLON() { return getToken(HPParser.SEMICOLON, 0); }
-		public CmdImportAreaContext(ParserRuleContext parent, int invokingState) {
+		public CmdMeasureAreaContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_cmdImportArea; }
+		@Override public int getRuleIndex() { return RULE_cmdMeasureArea; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HPListener ) ((HPListener)listener).enterCmdImportArea(this);
+			if ( listener instanceof HPListener ) ((HPListener)listener).enterCmdMeasureArea(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HPListener ) ((HPListener)listener).exitCmdImportArea(this);
+			if ( listener instanceof HPListener ) ((HPListener)listener).exitCmdMeasureArea(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HPVisitor ) return ((HPVisitor<? extends T>)visitor).visitCmdImportArea(this);
+			if ( visitor instanceof HPVisitor ) return ((HPVisitor<? extends T>)visitor).visitCmdMeasureArea(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final CmdImportAreaContext cmdImportArea() throws RecognitionException {
-		CmdImportAreaContext _localctx = new CmdImportAreaContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_cmdImportArea);
+	public final CmdMeasureAreaContext cmdMeasureArea() throws RecognitionException {
+		CmdMeasureAreaContext _localctx = new CmdMeasureAreaContext(_ctx, getState());
+		enterRule(_localctx, 12, RULE_cmdMeasureArea);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
@@ -892,9 +892,9 @@ public class HPParser extends Parser {
 		"\4\2\27\27\32\33\2|\2\30\3\2\2\2\4<\3\2\2\2\6@\3\2\2\2\bB\3\2\2\2\nD\3"+
 		"\2\2\2\fJ\3\2\2\2\16L\3\2\2\2\20R\3\2\2\2\22_\3\2\2\2\24l\3\2\2\2\26v"+
 		"\3\2\2\2\30\31\7\r\2\2\31\32\7\31\2\2\32\36\7\16\2\2\33\35\5\4\3\2\34"+
-		"\33\3\2\2\2\35 \3\2\2\2\36\34\3\2\2\2\36\37\3\2\2\2\37$\3\2\2\2 \36\3"+
-		"\2\2\2!#\5\f\7\2\"!\3\2\2\2#&\3\2\2\2$\"\3\2\2\2$%\3\2\2\2%*\3\2\2\2&"+
-		"$\3\2\2\2\')\5\26\f\2(\'\3\2\2\2),\3\2\2\2*(\3\2\2\2*+\3\2\2\2+-\3\2\2"+
+		"\33\3\2\2\2\35 \3\2\2\2\36\34\3\2\2\2\36\37\3\2\2\2\37*\3\2\2\2 \36\3"+
+		"\2\2\2!#\5\f\7\2\"!\3\2\2\2#&\3\2\2\2$\"\3\2\2\2$%\3\2\2\2%\'\3\2\2\2"+
+		"&$\3\2\2\2\')\5\26\f\2($\3\2\2\2),\3\2\2\2*(\3\2\2\2*+\3\2\2\2+-\3\2\2"+
 		"\2,*\3\2\2\2-.\7\2\2\3.\3\3\2\2\2/\60\7\17\2\2\60\61\7\27\2\2\61\62\7"+
 		"\20\2\2\62\63\5\6\4\2\63\64\7\23\2\2\64=\3\2\2\2\65\66\7\21\2\2\66\67"+
 		"\7\27\2\2\678\7\20\2\28=\7\32\2\29:\7\22\2\2:;\7\30\2\2;=\7\23\2\2</\3"+

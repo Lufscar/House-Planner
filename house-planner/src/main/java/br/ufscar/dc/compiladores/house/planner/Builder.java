@@ -95,9 +95,9 @@ public class Builder extends HPBaseVisitor{
                         + " não foi declarada nesse escopo");
                 }
             }
-        }else if(ctx.cmdImportArea()!= null){
-            if(escopoAtual.verificar(ctx.cmdImportArea().IDENTIFIER().getText()) == null){
-                throw new RuntimeException("Erro semântico: " + ctx.cmdImportArea().IDENTIFIER().getText()
+        }else if(ctx.cmdMeasureArea()!= null){
+            if(escopoAtual.verificar(ctx.cmdMeasureArea().IDENTIFIER().getText()) == null){
+                throw new RuntimeException("Erro semântico: " + ctx.cmdMeasureArea().IDENTIFIER().getText()
                         + " não foi declarada nesse escopo");
             }
         }

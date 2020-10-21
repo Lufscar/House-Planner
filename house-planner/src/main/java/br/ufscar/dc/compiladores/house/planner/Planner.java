@@ -49,7 +49,7 @@ public class Planner {
             
             Builder b = new Builder();
             double val = b.visitMap(map);
-            System.out.println("A casa tera " + val + "metros quadrados.");
+            System.out.println("A casa tera " + val + " metros quadrados.");
         }
         outFile.close();
     }

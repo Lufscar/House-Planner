@@ -44,13 +44,15 @@ public class Planner {
             lex.reset();
             CommonTokenStream tokens = new CommonTokenStream(lex);
             HPParser psr = new HPParser(tokens);
-            
+            MeuErrorListener error = new MeuErrorListener(outFile);
+            psr.addErrorListener(error);
             HPParser.MapContext map = psr.map();
             
             Builder b = new Builder();
             double val = b.visitMap(map);
             System.out.println("A casa tera " + val + " metros quadrados.");
         }
+        outFile.write("Fim da compilação!\n");
         outFile.close();
     }
 }

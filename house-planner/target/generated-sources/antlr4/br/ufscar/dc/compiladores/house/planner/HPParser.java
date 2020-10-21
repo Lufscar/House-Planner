@@ -19,9 +19,9 @@ public class HPParser extends Parser {
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
 		T__9=10, CONSTRUCTION=11, IS=12, DECLARE=13, AS=14, DEFINE=15, SET=16, 
-		SEMICOLON=17, UNDERSCORE=18, OPENPAR=19, CLOSEPAR=20, IDENTIFIER=21, USERTYPE=22, 
-		BLOCKNAME=23, NUMBER=24, STRING=25, COMMENT=26, WHITESPACE=27, ERRO_CAD=28, 
-		ERRO_SIMB=29;
+		SEMICOLON=17, UNDERSCORE=18, OPENPAR=19, CLOSEPAR=20, IDENTIFIER=21, CONSTANT=22, 
+		USERTYPE=23, BLOCKNAME=24, NUMBER=25, STRING=26, COMMENT=27, WHITESPACE=28, 
+		ERRO_CAD=29, ERRO_SIMB=30;
 	public static final int
 		RULE_map = 0, RULE_declaration = 1, RULE_type = 2, RULE_basicType = 3, 
 		RULE_newType = 4, RULE_build = 5, RULE_cmdMeasureArea = 6, RULE_cmdAddRoom = 7, 
@@ -47,8 +47,8 @@ public class HPParser extends Parser {
 		return new String[] {
 			null, null, null, null, null, null, null, null, null, null, null, "CONSTRUCTION", 
 			"IS", "DECLARE", "AS", "DEFINE", "SET", "SEMICOLON", "UNDERSCORE", "OPENPAR", 
-			"CLOSEPAR", "IDENTIFIER", "USERTYPE", "BLOCKNAME", "NUMBER", "STRING", 
-			"COMMENT", "WHITESPACE", "ERRO_CAD", "ERRO_SIMB"
+			"CLOSEPAR", "IDENTIFIER", "CONSTANT", "USERTYPE", "BLOCKNAME", "NUMBER", 
+			"STRING", "COMMENT", "WHITESPACE", "ERRO_CAD", "ERRO_SIMB"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -223,6 +223,7 @@ public class HPParser extends Parser {
 		}
 		public TerminalNode SEMICOLON() { return getToken(HPParser.SEMICOLON, 0); }
 		public TerminalNode DEFINE() { return getToken(HPParser.DEFINE, 0); }
+		public TerminalNode CONSTANT() { return getToken(HPParser.CONSTANT, 0); }
 		public TerminalNode NUMBER() { return getToken(HPParser.NUMBER, 0); }
 		public TerminalNode SET() { return getToken(HPParser.SET, 0); }
 		public TerminalNode USERTYPE() { return getToken(HPParser.USERTYPE, 0); }
@@ -273,7 +274,7 @@ public class HPParser extends Parser {
 				setState(51);
 				match(DEFINE);
 				setState(52);
-				match(IDENTIFIER);
+				match(CONSTANT);
 				setState(53);
 				match(AS);
 				setState(54);
@@ -756,6 +757,10 @@ public class HPParser extends Parser {
 		public TerminalNode IDENTIFIER(int i) {
 			return getToken(HPParser.IDENTIFIER, i);
 		}
+		public List<TerminalNode> CONSTANT() { return getTokens(HPParser.CONSTANT); }
+		public TerminalNode CONSTANT(int i) {
+			return getToken(HPParser.CONSTANT, i);
+		}
 		public List<TerminalNode> NUMBER() { return getTokens(HPParser.NUMBER); }
 		public TerminalNode NUMBER(int i) {
 			return getToken(HPParser.NUMBER, i);
@@ -798,7 +803,7 @@ public class HPParser extends Parser {
 				{
 				setState(108);
 				_la = _input.LA(1);
-				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << IDENTIFIER) | (1L << NUMBER) | (1L << STRING))) != 0)) ) {
+				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << IDENTIFIER) | (1L << CONSTANT) | (1L << NUMBER) | (1L << STRING))) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -811,7 +816,7 @@ public class HPParser extends Parser {
 				setState(111); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << IDENTIFIER) | (1L << NUMBER) | (1L << STRING))) != 0) );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << IDENTIFIER) | (1L << CONSTANT) | (1L << NUMBER) | (1L << STRING))) != 0) );
 			setState(113);
 			match(CLOSEPAR);
 			setState(114);
@@ -880,26 +885,26 @@ public class HPParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\37|\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4"+
-		"\f\t\f\3\2\3\2\3\2\3\2\7\2\35\n\2\f\2\16\2 \13\2\3\2\7\2#\n\2\f\2\16\2"+
-		"&\13\2\3\2\7\2)\n\2\f\2\16\2,\13\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3 |\4\2\t\2\4\3\t\3"+
+		"\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f"+
+		"\t\f\3\2\3\2\3\2\3\2\7\2\35\n\2\f\2\16\2 \13\2\3\2\7\2#\n\2\f\2\16\2&"+
+		"\13\2\3\2\7\2)\n\2\f\2\16\2,\13\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
 		"\3\3\3\3\3\3\3\3\3\3\3\3\5\3=\n\3\3\4\3\4\5\4A\n\4\3\5\3\5\3\6\3\6\3\7"+
 		"\3\7\3\7\3\7\5\7K\n\7\3\b\3\b\3\b\3\b\3\b\3\b\3\t\3\t\3\t\3\t\3\t\7\t"+
 		"X\n\t\f\t\16\t[\13\t\3\t\3\t\3\t\3\n\3\n\3\n\3\n\3\n\7\ne\n\n\f\n\16\n"+
 		"h\13\n\3\n\3\n\3\n\3\13\3\13\3\13\6\13p\n\13\r\13\16\13q\3\13\3\13\3\13"+
 		"\3\f\3\f\3\f\3\f\3\f\3\f\2\2\r\2\4\6\b\n\f\16\20\22\24\26\2\4\3\2\3\6"+
-		"\4\2\27\27\32\33\2|\2\30\3\2\2\2\4<\3\2\2\2\6@\3\2\2\2\bB\3\2\2\2\nD\3"+
+		"\4\2\27\30\33\34\2|\2\30\3\2\2\2\4<\3\2\2\2\6@\3\2\2\2\bB\3\2\2\2\nD\3"+
 		"\2\2\2\fJ\3\2\2\2\16L\3\2\2\2\20R\3\2\2\2\22_\3\2\2\2\24l\3\2\2\2\26v"+
-		"\3\2\2\2\30\31\7\r\2\2\31\32\7\31\2\2\32\36\7\16\2\2\33\35\5\4\3\2\34"+
+		"\3\2\2\2\30\31\7\r\2\2\31\32\7\32\2\2\32\36\7\16\2\2\33\35\5\4\3\2\34"+
 		"\33\3\2\2\2\35 \3\2\2\2\36\34\3\2\2\2\36\37\3\2\2\2\37*\3\2\2\2 \36\3"+
 		"\2\2\2!#\5\f\7\2\"!\3\2\2\2#&\3\2\2\2$\"\3\2\2\2$%\3\2\2\2%\'\3\2\2\2"+
 		"&$\3\2\2\2\')\5\26\f\2($\3\2\2\2),\3\2\2\2*(\3\2\2\2*+\3\2\2\2+-\3\2\2"+
 		"\2,*\3\2\2\2-.\7\2\2\3.\3\3\2\2\2/\60\7\17\2\2\60\61\7\27\2\2\61\62\7"+
 		"\20\2\2\62\63\5\6\4\2\63\64\7\23\2\2\64=\3\2\2\2\65\66\7\21\2\2\66\67"+
-		"\7\27\2\2\678\7\20\2\28=\7\32\2\29:\7\22\2\2:;\7\30\2\2;=\7\23\2\2</\3"+
+		"\7\30\2\2\678\7\20\2\28=\7\33\2\29:\7\22\2\2:;\7\31\2\2;=\7\23\2\2</\3"+
 		"\2\2\2<\65\3\2\2\2<9\3\2\2\2=\5\3\2\2\2>A\5\n\6\2?A\5\b\5\2@>\3\2\2\2"+
-		"@?\3\2\2\2A\7\3\2\2\2BC\t\2\2\2C\t\3\2\2\2DE\7\30\2\2E\13\3\2\2\2FK\5"+
+		"@?\3\2\2\2A\7\3\2\2\2BC\t\2\2\2C\t\3\2\2\2DE\7\31\2\2E\13\3\2\2\2FK\5"+
 		"\16\b\2GK\5\20\t\2HK\5\22\n\2IK\5\24\13\2JF\3\2\2\2JG\3\2\2\2JH\3\2\2"+
 		"\2JI\3\2\2\2K\r\3\2\2\2LM\7\7\2\2MN\7\25\2\2NO\7\27\2\2OP\7\26\2\2PQ\7"+
 		"\23\2\2Q\17\3\2\2\2RS\7\b\2\2ST\7\25\2\2TY\7\27\2\2UV\7\t\2\2VX\7\27\2"+

@@ -5,9 +5,13 @@
  */
 package br.ufscar.dc.compiladores.house.planner;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
@@ -15,7 +19,12 @@ import org.antlr.v4.runtime.tree.TerminalNode;
  * @author Vinicius Peixoto
  */
 public class Builder extends HPBaseVisitor{
+    FileWriter fw;
     Escopos escoposAninhados = new Escopos();
+    
+    Builder(FileWriter fw){
+        this.fw = fw;
+    }
 
     @Override
     public Double visitMap(HPParser.MapContext ctx) {
@@ -35,28 +44,49 @@ public class Builder extends HPBaseVisitor{
     @Override
     public Double visitDeclaration(HPParser.DeclarationContext ctx) {
         TabelaDeSimbolos escopoAtual = escoposAninhados.obterEscopoAtual();
+        escopoAtual.inserir("Bedroom", "Bedroom", 0);
+        escopoAtual.inserir("LivingRoom", "LivingRoom", 0);
+        escopoAtual.inserir("Bathroom", "Bathroom", 0);
+        escopoAtual.inserir("Kitchen", "Kitchen", 0);
         
-        if(ctx.SET() != null){
-            if(escopoAtual.verificar(ctx.USERTYPE().getText()) == null){
-                escopoAtual.inserir(ctx.USERTYPE().getText(), ctx.USERTYPE().getText(), 0);
+        try{
+            if(ctx.SET() != null){
+                if (ctx.USERTYPE() != null){
+                    if(escopoAtual.verificar(ctx.USERTYPE().getText()) == null){
+                        escopoAtual.inserir(ctx.USERTYPE().getText(), ctx.USERTYPE().getText(), 0);
+                    }else{
+                        fw.write("Erro semântico: " + ctx.USERTYPE().getText()
+                            + " declarada duas vezes num mesmo escopo\n");
+                    }
+                }
+            }else if (ctx.DEFINE() != null){
+                if (ctx.CONSTANT() != null){
+                    if(escopoAtual.verificar(ctx.CONSTANT().getText()) == null){
+                        if (ctx.NUMBER() != null){
+                            escopoAtual.inserir(ctx.CONSTANT().getText(), "NUMBER", Double.parseDouble(ctx.NUMBER().getText()));
+                        }
+                    }else{
+                        fw.write("Erro semântico: " + ctx.CONSTANT().getText()
+                            + " declarada duas vezes num mesmo escopo\n");
+                    }
+                }
             }else{
-                throw new RuntimeException("Erro semântico: " + ctx.USERTYPE().getText()
-                    + " declarada duas vezes num mesmo escopo");
-            }            
-        }else if (ctx.DEFINE() != null){
-            if(escopoAtual.verificar(ctx.IDENTIFIER().getText()) == null){
-                escopoAtual.inserir(ctx.IDENTIFIER().getText(), "NUMBER", Double.parseDouble(ctx.NUMBER().getText()));
-            }else{
-                throw new RuntimeException("Erro semântico: " + ctx.IDENTIFIER().getText()
-                    + " declarada duas vezes num mesmo escopo");
+                if (ctx.IDENTIFIER() != null){
+                    if(escopoAtual.verificar(ctx.IDENTIFIER().getText()) == null){
+                        if(escopoAtual.verificar(ctx.type().getText()) != null){
+                            escopoAtual.inserir(ctx.IDENTIFIER().getText(), ctx.type().getText(), 0);
+                        }else{
+                            fw.write("Erro semântico: " + ctx.type().getText()
+                            + " não foi declarada nesse escopo\n");
+                        }
+                    }else{
+                        fw.write("Erro semântico: " + ctx.IDENTIFIER().getText()
+                            + " declarada duas vezes num mesmo escopo\n");
+                    }
+                }
             }
-        }else{
-            if(escopoAtual.verificar(ctx.IDENTIFIER().getText()) == null){
-                escopoAtual.inserir(ctx.IDENTIFIER().getText(), ctx.type().getText(), 0);
-            }else{
-                throw new RuntimeException("Erro semântico: " + ctx.IDENTIFIER().getText()
-                    + " declarada duas vezes num mesmo escopo");
-            }
+        } catch (IOException ex) {
+            Logger.getLogger(Builder.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return null;
@@ -67,39 +97,45 @@ public class Builder extends HPBaseVisitor{
         double area = 0;
         TabelaDeSimbolos escopoAtual = escoposAninhados.obterEscopoAtual();
         
-        if(ctx.cmdAddRoom() != null){
-            for(TerminalNode tn : ctx.cmdAddRoom().IDENTIFIER()){
-                EntradaTabelaDeSimbolos ntds = escopoAtual.verificar(tn.getText());
-                if(ntds == null){
-                    throw new RuntimeException("Erro semântico: " + tn.getText()
-                        + " não foi declarada nesse escopo");
-                }else{
-                    ntds.active = true;
+        try{
+            if(ctx.cmdAddRoom() != null){
+                for(TerminalNode tn : ctx.cmdAddRoom().IDENTIFIER()){
+                    EntradaTabelaDeSimbolos ntds = escopoAtual.verificar(tn.getText());
+                    if(ntds == null){
+                        fw.write("Erro semântico: " + tn.getText()
+                            + " não foi declarada nesse escopo\n");
+                    }else{
+                        ntds.active = true;
+                    }
+                }
+            }else if(ctx.cmdSubRoom() != null){
+                for(TerminalNode tn : ctx.cmdSubRoom().IDENTIFIER()){
+                    EntradaTabelaDeSimbolos ntds = escopoAtual.verificar(tn.getText());
+                    if(ntds == null){
+                        fw.write("Erro semântico: " + tn.getText()
+                            + " não foi declarada nesse escopo\n");
+                    }else{
+                        ntds.active = false;
+                    }
+                }
+            }else if(ctx.cmdCreateAlert() != null){
+                for(TerminalNode tn : ctx.cmdCreateAlert().IDENTIFIER()){
+                    EntradaTabelaDeSimbolos ntds = escopoAtual.verificar(tn.getText());
+                    if(ntds == null){
+                        fw.write("Erro semântico: " + tn.getText()
+                            + " não foi declarada nesse escopo\n");
+                    }
+                }
+            }else if(ctx.cmdMeasureArea()!= null){
+                if(ctx.cmdMeasureArea().IDENTIFIER() != null){
+                    if(escopoAtual.verificar(ctx.cmdMeasureArea().IDENTIFIER().getText()) == null){
+                        fw.write("Erro semântico: " + ctx.cmdMeasureArea().IDENTIFIER().getText()
+                                + " não foi declarada nesse escopo\n");
+                    }
                 }
             }
-        }else if(ctx.cmdSubRoom() != null){
-            for(TerminalNode tn : ctx.cmdSubRoom().IDENTIFIER()){
-                EntradaTabelaDeSimbolos ntds = escopoAtual.verificar(tn.getText());
-                if(ntds == null){
-                    throw new RuntimeException("Erro semântico: " + tn.getText()
-                        + " não foi declarada nesse escopo");
-                }else{
-                    ntds.active = false;
-                }
-            }
-        }else if(ctx.cmdCreateAlert() != null){
-            for(TerminalNode tn : ctx.cmdCreateAlert().IDENTIFIER()){
-                EntradaTabelaDeSimbolos ntds = escopoAtual.verificar(tn.getText());
-                if(ntds == null){
-                    throw new RuntimeException("Erro semântico: " + tn.getText()
-                        + " não foi declarada nesse escopo");
-                }
-            }
-        }else if(ctx.cmdMeasureArea()!= null){
-            if(escopoAtual.verificar(ctx.cmdMeasureArea().IDENTIFIER().getText()) == null){
-                throw new RuntimeException("Erro semântico: " + ctx.cmdMeasureArea().IDENTIFIER().getText()
-                        + " não foi declarada nesse escopo");
-            }
+        } catch (IOException ex) {
+            Logger.getLogger(Builder.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return null;

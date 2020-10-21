@@ -36,7 +36,7 @@ public class HPParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'Bedroom'", "'LivingRoom'", "'Bathroom'", "'Kitchen'", "'importArea'", 
+			null, "'Bedroom'", "'LivingRoom'", "'Bathroom'", "'Kitchen'", "'measureArea'", 
 			"'addRoom'", "','", "'subRoom'", "'createAlert'", "'buildHouse'", "'construction'", 
 			"'is'", "'declare'", "'as'", "'define'", "'set'", "';'", "'_'", "'('", 
 			"')'"
@@ -119,6 +119,12 @@ public class HPParser extends Parser {
 		public BuildContext build(int i) {
 			return getRuleContext(BuildContext.class,i);
 		}
+		public List<CmdBuildHouseContext> cmdBuildHouse() {
+			return getRuleContexts(CmdBuildHouseContext.class);
+		}
+		public CmdBuildHouseContext cmdBuildHouse(int i) {
+			return getRuleContext(CmdBuildHouseContext.class,i);
+		}
 		public MapContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -168,7 +174,7 @@ public class HPParser extends Parser {
 			setState(34);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__4) | (1L << T__5) | (1L << T__7) | (1L << T__8) | (1L << T__9))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__4) | (1L << T__5) | (1L << T__7) | (1L << T__8))) != 0)) {
 				{
 				{
 				setState(31);
@@ -179,7 +185,21 @@ public class HPParser extends Parser {
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(37);
+			setState(40);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			while (_la==T__9) {
+				{
+				{
+				setState(37);
+				cmdBuildHouse();
+				}
+				}
+				setState(42);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			}
+			setState(43);
 			match(EOF);
 			}
 		}
@@ -229,45 +249,45 @@ public class HPParser extends Parser {
 		DeclarationContext _localctx = new DeclarationContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_declaration);
 		try {
-			setState(52);
+			setState(58);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case DECLARE:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(39);
+				setState(45);
 				match(DECLARE);
-				setState(40);
+				setState(46);
 				match(IDENTIFIER);
-				setState(41);
+				setState(47);
 				match(AS);
-				setState(42);
+				setState(48);
 				type();
-				setState(43);
+				setState(49);
 				match(SEMICOLON);
 				}
 				break;
 			case DEFINE:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(45);
+				setState(51);
 				match(DEFINE);
-				setState(46);
+				setState(52);
 				match(IDENTIFIER);
-				setState(47);
+				setState(53);
 				match(AS);
-				setState(48);
+				setState(54);
 				match(NUMBER);
 				}
 				break;
 			case SET:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(49);
+				setState(55);
 				match(SET);
-				setState(50);
+				setState(56);
 				match(USERTYPE);
-				setState(51);
+				setState(57);
 				match(SEMICOLON);
 				}
 				break;
@@ -316,13 +336,13 @@ public class HPParser extends Parser {
 		TypeContext _localctx = new TypeContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_type);
 		try {
-			setState(56);
+			setState(62);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case USERTYPE:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(54);
+				setState(60);
 				newType();
 				}
 				break;
@@ -332,7 +352,7 @@ public class HPParser extends Parser {
 			case T__3:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(55);
+				setState(61);
 				basicType();
 				}
 				break;
@@ -378,7 +398,7 @@ public class HPParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(58);
+			setState(64);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__1) | (1L << T__2) | (1L << T__3))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -428,7 +448,7 @@ public class HPParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(60);
+			setState(66);
 			match(USERTYPE);
 			}
 		}
@@ -456,9 +476,6 @@ public class HPParser extends Parser {
 		public CmdCreateAlertContext cmdCreateAlert() {
 			return getRuleContext(CmdCreateAlertContext.class,0);
 		}
-		public CmdBuildHouseContext cmdBuildHouse() {
-			return getRuleContext(CmdBuildHouseContext.class,0);
-		}
 		public BuildContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -482,42 +499,35 @@ public class HPParser extends Parser {
 		BuildContext _localctx = new BuildContext(_ctx, getState());
 		enterRule(_localctx, 10, RULE_build);
 		try {
-			setState(67);
+			setState(72);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__4:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(62);
+				setState(68);
 				cmdImportArea();
 				}
 				break;
 			case T__5:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(63);
+				setState(69);
 				cmdAddRoom();
 				}
 				break;
 			case T__7:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(64);
+				setState(70);
 				cmdSubRoom();
 				}
 				break;
 			case T__8:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(65);
+				setState(71);
 				cmdCreateAlert();
-				}
-				break;
-			case T__9:
-				enterOuterAlt(_localctx, 5);
-				{
-				setState(66);
-				cmdBuildHouse();
 				}
 				break;
 			default:
@@ -565,15 +575,15 @@ public class HPParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(69);
+			setState(74);
 			match(T__4);
-			setState(70);
+			setState(75);
 			match(OPENPAR);
-			setState(71);
+			setState(76);
 			match(IDENTIFIER);
-			setState(72);
+			setState(77);
 			match(CLOSEPAR);
-			setState(73);
+			setState(78);
 			match(SEMICOLON);
 			}
 		}
@@ -622,31 +632,31 @@ public class HPParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(75);
+			setState(80);
 			match(T__5);
-			setState(76);
+			setState(81);
 			match(OPENPAR);
-			setState(77);
-			match(IDENTIFIER);
 			setState(82);
+			match(IDENTIFIER);
+			setState(87);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==T__6) {
 				{
 				{
-				setState(78);
+				setState(83);
 				match(T__6);
-				setState(79);
+				setState(84);
 				match(IDENTIFIER);
 				}
 				}
-				setState(84);
+				setState(89);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(85);
+			setState(90);
 			match(CLOSEPAR);
-			setState(86);
+			setState(91);
 			match(SEMICOLON);
 			}
 		}
@@ -695,31 +705,31 @@ public class HPParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(88);
+			setState(93);
 			match(T__7);
-			setState(89);
+			setState(94);
 			match(OPENPAR);
-			setState(90);
-			match(IDENTIFIER);
 			setState(95);
+			match(IDENTIFIER);
+			setState(100);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==T__6) {
 				{
 				{
-				setState(91);
+				setState(96);
 				match(T__6);
-				setState(92);
+				setState(97);
 				match(IDENTIFIER);
 				}
 				}
-				setState(97);
+				setState(102);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(98);
+			setState(103);
 			match(CLOSEPAR);
-			setState(99);
+			setState(104);
 			match(SEMICOLON);
 			}
 		}
@@ -776,17 +786,17 @@ public class HPParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(101);
+			setState(106);
 			match(T__8);
-			setState(102);
+			setState(107);
 			match(OPENPAR);
-			setState(104); 
+			setState(109); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(103);
+				setState(108);
 				_la = _input.LA(1);
 				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << IDENTIFIER) | (1L << NUMBER) | (1L << STRING))) != 0)) ) {
 				_errHandler.recoverInline(this);
@@ -798,13 +808,13 @@ public class HPParser extends Parser {
 				}
 				}
 				}
-				setState(106); 
+				setState(111); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << IDENTIFIER) | (1L << NUMBER) | (1L << STRING))) != 0) );
-			setState(108);
+			setState(113);
 			match(CLOSEPAR);
-			setState(109);
+			setState(114);
 			match(SEMICOLON);
 			}
 		}
@@ -848,13 +858,13 @@ public class HPParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(111);
+			setState(116);
 			match(T__9);
-			setState(112);
+			setState(117);
 			match(OPENPAR);
-			setState(113);
+			setState(118);
 			match(CLOSEPAR);
-			setState(114);
+			setState(119);
 			match(SEMICOLON);
 			}
 		}
@@ -870,35 +880,36 @@ public class HPParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\37w\4\2\t\2\4\3\t"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\37|\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4"+
 		"\f\t\f\3\2\3\2\3\2\3\2\7\2\35\n\2\f\2\16\2 \13\2\3\2\7\2#\n\2\f\2\16\2"+
-		"&\13\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3"+
-		"\67\n\3\3\4\3\4\5\4;\n\4\3\5\3\5\3\6\3\6\3\7\3\7\3\7\3\7\3\7\5\7F\n\7"+
-		"\3\b\3\b\3\b\3\b\3\b\3\b\3\t\3\t\3\t\3\t\3\t\7\tS\n\t\f\t\16\tV\13\t\3"+
-		"\t\3\t\3\t\3\n\3\n\3\n\3\n\3\n\7\n`\n\n\f\n\16\nc\13\n\3\n\3\n\3\n\3\13"+
-		"\3\13\3\13\6\13k\n\13\r\13\16\13l\3\13\3\13\3\13\3\f\3\f\3\f\3\f\3\f\3"+
-		"\f\2\2\r\2\4\6\b\n\f\16\20\22\24\26\2\4\3\2\3\6\4\2\27\27\32\33\2w\2\30"+
-		"\3\2\2\2\4\66\3\2\2\2\6:\3\2\2\2\b<\3\2\2\2\n>\3\2\2\2\fE\3\2\2\2\16G"+
-		"\3\2\2\2\20M\3\2\2\2\22Z\3\2\2\2\24g\3\2\2\2\26q\3\2\2\2\30\31\7\r\2\2"+
-		"\31\32\7\31\2\2\32\36\7\16\2\2\33\35\5\4\3\2\34\33\3\2\2\2\35 \3\2\2\2"+
-		"\36\34\3\2\2\2\36\37\3\2\2\2\37$\3\2\2\2 \36\3\2\2\2!#\5\f\7\2\"!\3\2"+
-		"\2\2#&\3\2\2\2$\"\3\2\2\2$%\3\2\2\2%\'\3\2\2\2&$\3\2\2\2\'(\7\2\2\3(\3"+
-		"\3\2\2\2)*\7\17\2\2*+\7\27\2\2+,\7\20\2\2,-\5\6\4\2-.\7\23\2\2.\67\3\2"+
-		"\2\2/\60\7\21\2\2\60\61\7\27\2\2\61\62\7\20\2\2\62\67\7\32\2\2\63\64\7"+
-		"\22\2\2\64\65\7\30\2\2\65\67\7\23\2\2\66)\3\2\2\2\66/\3\2\2\2\66\63\3"+
-		"\2\2\2\67\5\3\2\2\28;\5\n\6\29;\5\b\5\2:8\3\2\2\2:9\3\2\2\2;\7\3\2\2\2"+
-		"<=\t\2\2\2=\t\3\2\2\2>?\7\30\2\2?\13\3\2\2\2@F\5\16\b\2AF\5\20\t\2BF\5"+
-		"\22\n\2CF\5\24\13\2DF\5\26\f\2E@\3\2\2\2EA\3\2\2\2EB\3\2\2\2EC\3\2\2\2"+
-		"ED\3\2\2\2F\r\3\2\2\2GH\7\7\2\2HI\7\25\2\2IJ\7\27\2\2JK\7\26\2\2KL\7\23"+
-		"\2\2L\17\3\2\2\2MN\7\b\2\2NO\7\25\2\2OT\7\27\2\2PQ\7\t\2\2QS\7\27\2\2"+
-		"RP\3\2\2\2SV\3\2\2\2TR\3\2\2\2TU\3\2\2\2UW\3\2\2\2VT\3\2\2\2WX\7\26\2"+
-		"\2XY\7\23\2\2Y\21\3\2\2\2Z[\7\n\2\2[\\\7\25\2\2\\a\7\27\2\2]^\7\t\2\2"+
-		"^`\7\27\2\2_]\3\2\2\2`c\3\2\2\2a_\3\2\2\2ab\3\2\2\2bd\3\2\2\2ca\3\2\2"+
-		"\2de\7\26\2\2ef\7\23\2\2f\23\3\2\2\2gh\7\13\2\2hj\7\25\2\2ik\t\3\2\2j"+
-		"i\3\2\2\2kl\3\2\2\2lj\3\2\2\2lm\3\2\2\2mn\3\2\2\2no\7\26\2\2op\7\23\2"+
-		"\2p\25\3\2\2\2qr\7\f\2\2rs\7\25\2\2st\7\26\2\2tu\7\23\2\2u\27\3\2\2\2"+
-		"\n\36$\66:ETal";
+		"&\13\2\3\2\7\2)\n\2\f\2\16\2,\13\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
+		"\3\3\3\3\3\3\3\3\3\3\3\3\5\3=\n\3\3\4\3\4\5\4A\n\4\3\5\3\5\3\6\3\6\3\7"+
+		"\3\7\3\7\3\7\5\7K\n\7\3\b\3\b\3\b\3\b\3\b\3\b\3\t\3\t\3\t\3\t\3\t\7\t"+
+		"X\n\t\f\t\16\t[\13\t\3\t\3\t\3\t\3\n\3\n\3\n\3\n\3\n\7\ne\n\n\f\n\16\n"+
+		"h\13\n\3\n\3\n\3\n\3\13\3\13\3\13\6\13p\n\13\r\13\16\13q\3\13\3\13\3\13"+
+		"\3\f\3\f\3\f\3\f\3\f\3\f\2\2\r\2\4\6\b\n\f\16\20\22\24\26\2\4\3\2\3\6"+
+		"\4\2\27\27\32\33\2|\2\30\3\2\2\2\4<\3\2\2\2\6@\3\2\2\2\bB\3\2\2\2\nD\3"+
+		"\2\2\2\fJ\3\2\2\2\16L\3\2\2\2\20R\3\2\2\2\22_\3\2\2\2\24l\3\2\2\2\26v"+
+		"\3\2\2\2\30\31\7\r\2\2\31\32\7\31\2\2\32\36\7\16\2\2\33\35\5\4\3\2\34"+
+		"\33\3\2\2\2\35 \3\2\2\2\36\34\3\2\2\2\36\37\3\2\2\2\37$\3\2\2\2 \36\3"+
+		"\2\2\2!#\5\f\7\2\"!\3\2\2\2#&\3\2\2\2$\"\3\2\2\2$%\3\2\2\2%*\3\2\2\2&"+
+		"$\3\2\2\2\')\5\26\f\2(\'\3\2\2\2),\3\2\2\2*(\3\2\2\2*+\3\2\2\2+-\3\2\2"+
+		"\2,*\3\2\2\2-.\7\2\2\3.\3\3\2\2\2/\60\7\17\2\2\60\61\7\27\2\2\61\62\7"+
+		"\20\2\2\62\63\5\6\4\2\63\64\7\23\2\2\64=\3\2\2\2\65\66\7\21\2\2\66\67"+
+		"\7\27\2\2\678\7\20\2\28=\7\32\2\29:\7\22\2\2:;\7\30\2\2;=\7\23\2\2</\3"+
+		"\2\2\2<\65\3\2\2\2<9\3\2\2\2=\5\3\2\2\2>A\5\n\6\2?A\5\b\5\2@>\3\2\2\2"+
+		"@?\3\2\2\2A\7\3\2\2\2BC\t\2\2\2C\t\3\2\2\2DE\7\30\2\2E\13\3\2\2\2FK\5"+
+		"\16\b\2GK\5\20\t\2HK\5\22\n\2IK\5\24\13\2JF\3\2\2\2JG\3\2\2\2JH\3\2\2"+
+		"\2JI\3\2\2\2K\r\3\2\2\2LM\7\7\2\2MN\7\25\2\2NO\7\27\2\2OP\7\26\2\2PQ\7"+
+		"\23\2\2Q\17\3\2\2\2RS\7\b\2\2ST\7\25\2\2TY\7\27\2\2UV\7\t\2\2VX\7\27\2"+
+		"\2WU\3\2\2\2X[\3\2\2\2YW\3\2\2\2YZ\3\2\2\2Z\\\3\2\2\2[Y\3\2\2\2\\]\7\26"+
+		"\2\2]^\7\23\2\2^\21\3\2\2\2_`\7\n\2\2`a\7\25\2\2af\7\27\2\2bc\7\t\2\2"+
+		"ce\7\27\2\2db\3\2\2\2eh\3\2\2\2fd\3\2\2\2fg\3\2\2\2gi\3\2\2\2hf\3\2\2"+
+		"\2ij\7\26\2\2jk\7\23\2\2k\23\3\2\2\2lm\7\13\2\2mo\7\25\2\2np\t\3\2\2o"+
+		"n\3\2\2\2pq\3\2\2\2qo\3\2\2\2qr\3\2\2\2rs\3\2\2\2st\7\26\2\2tu\7\23\2"+
+		"\2u\25\3\2\2\2vw\7\f\2\2wx\7\25\2\2xy\7\26\2\2yz\7\23\2\2z\27\3\2\2\2"+
+		"\13\36$*<@JYfq";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

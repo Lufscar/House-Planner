@@ -24,9 +24,11 @@ public class Builder extends HPBaseVisitor{
             visitDeclaration(dec);
         }
         for(HPParser.BuildContext bc : ctx.build()){
-            areaTotal += visitBuild(bc);
+            visitBuild(bc);
         }
-        
+        for(HPParser.CmdBuildHouseContext bh : ctx.cmdBuildHouse()){
+            areaTotal += visitCmdBuildHouse(bh);
+        }
         return areaTotal;
     }
 
@@ -97,14 +99,10 @@ public class Builder extends HPBaseVisitor{
             if(escopoAtual.verificar(ctx.cmdImportArea().IDENTIFIER().getText()) == null){
                 throw new RuntimeException("Erro semântico: " + ctx.cmdImportArea().IDENTIFIER().getText()
                         + " não foi declarada nesse escopo");
-            }else{
-                escopoAtual.modificar(ctx.cmdImportArea().IDENTIFIER().getText(), true);
             }
         }
         
-        area = visitCmdBuildHouse(ctx.cmdBuildHouse());
-        
-        return area;
+        return null;
     }
 
     @Override
@@ -113,6 +111,7 @@ public class Builder extends HPBaseVisitor{
         for(TabelaDeSimbolos ts : escoposAninhados.percorrerEscoposAninhados()){
             for(var num : ts.valor()){
                 if(num.active){
+                    System.out.println(num.nome + " : " + num.area);
                     areaTotal += num.area;
                 }
                 

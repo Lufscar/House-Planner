@@ -16,7 +16,7 @@ OPENPAR:        '(';
 CLOSEPAR:       ')';
 
 map:
-	CONSTRUCTION BLOCKNAME IS declaration* build* EOF;
+	CONSTRUCTION BLOCKNAME IS declaration* build* cmdBuildHouse* EOF;
 
 declaration:
 	DECLARE IDENTIFIER AS type SEMICOLON	|
@@ -61,14 +61,13 @@ ERRO_SIMB:
     .?;
 
 build:
-	cmdImportArea		|
+	cmdMeasureArea		|
 	cmdAddRoom		|
 	cmdSubRoom		|
-	cmdCreateAlert          |
-	cmdBuildHouse;
+	cmdCreateAlert;
 
-cmdImportArea:
-	'importArea' OPENPAR IDENTIFIER CLOSEPAR SEMICOLON;
+cmdMeasureArea:
+	'measureArea' OPENPAR IDENTIFIER CLOSEPAR SEMICOLON;
 
 cmdAddRoom:
 	'addRoom' OPENPAR IDENTIFIER (',' IDENTIFIER)* CLOSEPAR SEMICOLON;

@@ -1,7 +1,5 @@
-#House Planner Language
+# House Planner Language
 #### Com a HPL você pode definir uma lista de cômodos e verificar a validade destes, analisando a estrutura básica de uma casa e a área disponível para a construção.
-![Logo](https://drive.google.com/file/d/1I-BSMcdGRBYSMsZ8eOGJEmjdYa0bCgYT/view?usp=sharing)
-
 A linguagem foi projetada durante a discilplina de Construção de Compiladores 1, ministrada pelo professor Danieal Lucrédio **@dlucredio**, durante o Ensino Não Presencial Empergencial - 2020, da Universidade Federal de São Carlos (UFSCar), por:
 * Luciana Oliveira de Souza Gomes **@lufscar**
 * Vinicius de Oliveira Peixoto **@viniciuspeixoto**

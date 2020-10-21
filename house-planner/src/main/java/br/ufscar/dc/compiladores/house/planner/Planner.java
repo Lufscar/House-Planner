@@ -33,7 +33,7 @@ public class Planner {
                 outFile.write("Linha " + t.getLine() + ": cadeia literal nao fechada\n");
                 break;
             }
-            outFile.write("<" + lex.VOCABULARY.getDisplayName(t.getType()) + "," + t.getText() + ">\n");
+            //outFile.write("<" + lex.VOCABULARY.getDisplayName(t.getType()) + "," + t.getText() + ">\n");
         }
         if (lex.nextToken().getType() == Token.EOF) {
             //função reset() possibilita o uso repetido do mesmo token e viabiliza a análise sintática

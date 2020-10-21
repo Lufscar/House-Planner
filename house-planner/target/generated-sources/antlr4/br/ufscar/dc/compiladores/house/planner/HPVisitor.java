@@ -47,11 +47,11 @@ public interface HPVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBuild(HPParser.BuildContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link HPParser#cmdImportArea}.
+	 * Visit a parse tree produced by {@link HPParser#cmdMeasureArea}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitCmdImportArea(HPParser.CmdImportAreaContext ctx);
+	T visitCmdMeasureArea(HPParser.CmdMeasureAreaContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link HPParser#cmdAddRoom}.
 	 * @param ctx the parse tree

@@ -48,7 +48,7 @@ public class Planner {
             psr.addErrorListener(error);
             HPParser.MapContext map = psr.map();
             
-            Builder b = new Builder();
+            Builder b = new Builder(outFile);
             double val = b.visitMap(map);
             System.out.println("A casa tera " + val + " metros quadrados.");
         }

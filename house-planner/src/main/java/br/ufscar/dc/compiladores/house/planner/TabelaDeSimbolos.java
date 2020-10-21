@@ -32,11 +32,11 @@ public class TabelaDeSimbolos {
         return tabelaDeSimbolos.get(nome);
     }
     
-    public void modificar(String nome, boolean active){
-        EntradaTabelaDeSimbolos etds = tabelaDeSimbolos.get(nome);
-        etds.active = active;
-        tabelaDeSimbolos.replace(nome, etds);
-    }
+//    public void modificar(String nome, double area){
+//        EntradaTabelaDeSimbolos etds = tabelaDeSimbolos.get(nome);
+//        etds.area = area;
+//        tabelaDeSimbolos.replace(nome, etds);
+//    }
     
     public Collection<EntradaTabelaDeSimbolos> valor(){
         return tabelaDeSimbolos.values();

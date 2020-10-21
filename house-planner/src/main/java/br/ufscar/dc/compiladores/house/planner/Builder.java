@@ -145,12 +145,18 @@ public class Builder extends HPBaseVisitor{
     public Double visitCmdBuildHouse(HPParser.CmdBuildHouseContext ctx) {
         double areaTotal = 0;
         for(TabelaDeSimbolos ts : escoposAninhados.percorrerEscoposAninhados()){
+            EntradaTabelaDeSimbolos max = ts.verificar("MAX");
             for(var num : ts.valor()){
                 if(num.active){
                     System.out.println(num.nome + " : " + num.area);
                     areaTotal += num.area;
                 }
                 
+            }
+            if(max != null){
+                if(areaTotal > max.area){
+                    areaTotal = -areaTotal;
+                }
             }
         }
         

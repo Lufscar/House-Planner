@@ -50,7 +50,11 @@ public class Planner {
             
             Builder b = new Builder(outFile);
             double val = b.visitMap(map);
-            System.out.println("A casa tera " + val + " metros quadrados.");
+            if(val < 0){
+                System.out.println("Area maior do que o maximo permitido!");
+            }else{
+                System.out.println("A casa tera " + val + " metros quadrados.");
+            }
         }
         outFile.write("Fim da compilação!\n");
         outFile.close();

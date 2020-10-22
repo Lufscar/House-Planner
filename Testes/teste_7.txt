@@ -1,5 +1,5 @@
-# este é o teste 1 
-# (sem erros)
+# este é o teste 7 
+#(erro semantico: Uso de um identificador não declarado, linhas 13 e 14)
 
 construction apartamento is
 
@@ -10,13 +10,13 @@ declare _quartoCasal as Bedroom;
 define AREA as 55.4;
 declare _areaServico as AreaDeServico;
 
-measureArea(_sala);
-measureArea(_quartoCasal);
+measureArea(_sala1);
+measureArea(_quartoCasal1);
 addRoom(_sala, _quartoCasal);
 addRoom(_banheiro);
 addRoom(_areaServico);
 buildHouse();
 
-createAlert('Lembre que a area total é: ' AREA);
+createAlert('Lembre que a area total é:'  AREA);
 subRoom(_areaServico);
 buildHouse();

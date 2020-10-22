@@ -1,5 +1,5 @@
-# este é o teste 1 
-# (sem erros)
+# este é o teste 3 
+#(erro lexico: cadeia não fechada, linha 20)
 
 construction apartamento is
 
@@ -17,6 +17,6 @@ addRoom(_banheiro);
 addRoom(_areaServico);
 buildHouse();
 
-createAlert('Lembre que a area total é: ' AREA);
+createAlert('Lembre que a area total é:  AREA);
 subRoom(_areaServico);
 buildHouse();

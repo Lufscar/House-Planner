@@ -1,9 +1,9 @@
-# este é o teste 1 
-# (sem erros)
+# este é o teste 2 
+#(erro lexico: simbolo não identificado, linha 6)
 
 construction apartamento is
 
-set AreaDeServico;
+set AreaDeServico^;
 declare _banheiro as Bathroom; 
 declare _sala as LivingRoom;
 declare _quartoCasal as Bedroom; 
@@ -17,6 +17,6 @@ addRoom(_banheiro);
 addRoom(_areaServico);
 buildHouse();
 
-createAlert('Lembre que a area total é: ' AREA);
+createAlert('Lembre que a area total é:'  AREA);
 subRoom(_areaServico);
 buildHouse();

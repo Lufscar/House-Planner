@@ -1,5 +1,5 @@
-# este é o teste 1 
-# (sem erros)
+# este é o teste 4 
+#(erro sintatico: operação entre tipos de dados diferentes, linha 10)
 
 construction apartamento is
 
@@ -7,7 +7,7 @@ set AreaDeServico;
 declare _banheiro as Bathroom; 
 declare _sala as LivingRoom;
 declare _quartoCasal as Bedroom; 
-define AREA as 55.4;
+define AREA as cinquenta;
 declare _areaServico as AreaDeServico;
 
 measureArea(_sala);
@@ -17,6 +17,6 @@ addRoom(_banheiro);
 addRoom(_areaServico);
 buildHouse();
 
-createAlert('Lembre que a area total é: ' AREA);
+createAlert('Lembre que a area total é:  AREA);
 subRoom(_areaServico);
 buildHouse();

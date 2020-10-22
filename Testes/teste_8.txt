@@ -1,14 +1,14 @@
-# este é o teste 1 
-# (sem erros)
+# este é o teste 8
+#(erro semantico: Uso de um tipo não declarado, linhas 10 e 11)
 
 construction apartamento is
 
-set AreaDeServico;
 declare _banheiro as Bathroom; 
 declare _sala as LivingRoom;
 declare _quartoCasal as Bedroom; 
 define AREA as 55.4;
 declare _areaServico as AreaDeServico;
+declare _lavanderia1 as Lavanderia;
 
 measureArea(_sala);
 measureArea(_quartoCasal);
@@ -17,6 +17,6 @@ addRoom(_banheiro);
 addRoom(_areaServico);
 buildHouse();
 
-createAlert('Lembre que a area total é: ' AREA);
+createAlert('Lembre que a area total é:'  AREA);
 subRoom(_areaServico);
 buildHouse();

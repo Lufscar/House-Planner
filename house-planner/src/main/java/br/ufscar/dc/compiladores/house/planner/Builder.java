@@ -173,28 +173,29 @@ public class Builder extends HPBaseVisitor{
             
             for(var num : ts.valor()){
                 if(num.active){
-                    if(num.nome == "Garage" || num.nome == "Garagem" ||
-                            num.nome == "Balcony" || num.nome == "Varanda"){
+                    if(num.tipo.equals("Garage") || num.tipo.equals("Garagem") ||
+                            num.tipo.equals("Balcony") || num.tipo.equals("Varanda")){
                         taxArea += num.area/2;
                         areaTotal += num.area;
                     }else{
                         taxArea += num.area;
                         areaTotal += num.area;
                     }
+                    if(num.tipo.equals("LivingRoom") || num.tipo.equals("Sala")) {
+                        hasLiv = true;
+                    }
+                    if(num.tipo.equals("Bedroom") || num.tipo.equals("Quarto")) {
+                        hasBed = true;
+                    }
+                    if(num.tipo.equals("Kitchen") || num.tipo.equals("Cozinha")) {
+                        hasKit = true;
+                    }
+                    if(num.tipo.equals("Bathroom") || num.tipo.equals("Banheiro")){
+                        hasBath = true;
+                        bathCount++;
+                    }
                 }
-                if(num.nome == "LivingRoom") {
-                    hasLiv = true;
-                }
-                if(num.nome == "Bedroom") {
-                    hasBed = true;
-                }
-                if(num.nome == "Kitchen") {
-                    hasKit = true;
-                }
-                if(num.nome == "Bathroom"){
-                    hasBath = true;
-                    bathCount++;
-                }
+                
             }
             if(max != null){
                 if(areaTotal > max.area){
@@ -223,6 +224,7 @@ public class Builder extends HPBaseVisitor{
                 
             }
         }
+        
         if(!hasLiv || !hasBed || !hasBath || !hasKit) {
             areaTotal = -9999;
         }

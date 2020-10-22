@@ -26,47 +26,36 @@ public class Planner {
         CharStream cs = CharStreams.fromFileName(args[0]);
         HPLexer lex = new HPLexer(cs);
         Token t = null;
+        Builder b = new Builder(saida);
         while ((t = lex.nextToken()).getType() != Token.EOF) {
             if (lex.VOCABULARY.getDisplayName(t.getType()) == "ERRO_SIMB") {
-                // Identifica o erro e para todo o processo
-                saida.println("Linha " + t.getLine() + ": " + t.getText() + " - simbolo nao identificado\n");
-                break;
+                b.Results("Erro Lexico: Linha " + t.getLine() + ": " + t.getText() + " - simbolo nao identificado\n");
             }
             if (lex.VOCABULARY.getDisplayName(t.getType()) == "ERRO_CAD") {
-                // Identifica o erro e para todo o processo
-                saida.println("Linha " + t.getLine() + ": cadeia literal nao fechada\n");
-                break;
+                b.Results("Erro Lexico: Linha " + t.getLine() + ": cadeia literal nao fechada\n");
             }
         }
 
         /*
         Análise Sintática e Semântica
          */
-        if (lex.nextToken().getType() == Token.EOF) {
+        if (lex.nextToken().getType() == Token.EOF && !saida.mod) {
             lex.reset();
             CommonTokenStream tokens = new CommonTokenStream(lex);
             HPParser psr = new HPParser(tokens);
             HPParser.MapContext map = psr.map();
             MeuErrorListener error = new MeuErrorListener(saida);
             psr.addErrorListener(error);
-            Builder b = new Builder(saida);
             double val = b.visitMap(map);
         }
         //outFile.close();
 
-        /*
-        Gerador de código html
-         */
-        CommonTokenStream tokens = new CommonTokenStream(lex);
-        HPParser psr = new HPParser(tokens);
-        HPParser.MapContext map = psr.map();
-        Gerador ge = new Gerador(saida);
-        ge.visitMap(map);
+        
+       //Gerador de código html
         try (PrintWriter generated = new PrintWriter(args[1])) {
-            generated.print(ge.saida.toString());
+            generated.print(saida.toString());
         }
-        /*
-        Fim Gerador
-         */
+        //Fim Gerador
+         
     }
 }

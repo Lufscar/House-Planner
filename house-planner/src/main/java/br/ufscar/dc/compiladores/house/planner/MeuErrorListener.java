@@ -19,12 +19,12 @@ import org.antlr.v4.runtime.Token;
 public class MeuErrorListener extends BaseErrorListener {
     
     // O arquivo de saída é criado usando FileWriter.
-    Out fw = new Out();
+    Out saida = new Out();
     boolean hasErros = false;
     
     //Inicialização
-    MeuErrorListener(Out fw){
-        this.fw = fw;
+    MeuErrorListener(Out saida){
+        this.saida = saida;
     }
     
     /*
@@ -44,12 +44,12 @@ public class MeuErrorListener extends BaseErrorListener {
             }
             
             //mensagem de erro sintático
-            msg = "Linha "+line+": erro sintatico proximo a "+str_token[1];
+            msg = "Erro Sintatico: Linha "+line+" - proximo a "+str_token[1];
             
         /*
          * escrita de msg no arquivo de saída
          */
-        fw.println(msg+"\n");
+        saida.println(msg+"\n");
             
             hasErros = true;
         }

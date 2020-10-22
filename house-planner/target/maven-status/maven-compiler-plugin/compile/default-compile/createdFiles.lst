@@ -23,4 +23,3 @@ br\ufscar\dc\compiladores\house\planner\HPParser$MapContext.class
 br\ufscar\dc\compiladores\house\planner\EntradaTabelaDeSimbolos.class
 br\ufscar\dc\compiladores\house\planner\HPBaseVisitor.class
 br\ufscar\dc\compiladores\house\planner\HPListener.class
-br\ufscar\dc\compiladores\house\planner\Gerador.class

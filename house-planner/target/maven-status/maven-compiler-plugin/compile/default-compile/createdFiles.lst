@@ -1,5 +1,4 @@
 br\ufscar\dc\compiladores\house\planner\TabelaDeSimbolos.class
-br\ufscar\dc\compiladores\house\planner\Room.class
 br\ufscar\dc\compiladores\house\planner\Escopos.class
 br\ufscar\dc\compiladores\house\planner\HPParser$NewTypeContext.class
 br\ufscar\dc\compiladores\house\planner\HPParser$DeclarationContext.class

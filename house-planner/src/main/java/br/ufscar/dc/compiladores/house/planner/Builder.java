@@ -17,12 +17,12 @@ import java.util.logging.Logger;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 public class Builder extends HPBaseVisitor{
-    FileWriter fw;
+    Out fw = new Out();
     Escopos escoposAninhados = new Escopos();
     boolean hasErros = false;
     
     
-    Builder(FileWriter fw){
+    Builder(Out fw){
         this.fw = fw;
     }
 
@@ -62,52 +62,48 @@ public class Builder extends HPBaseVisitor{
         escopoAtual.inserir("Bathroom", "Bathroom", 0);
         escopoAtual.inserir("Kitchen", "Kitchen", 0);
         
-        try{
-            if(ctx.SET() != null){
-                if (ctx.USERTYPE() != null){
-                    if(escopoAtual.verificar(ctx.USERTYPE().getText()) == null){
-                        escopoAtual.inserir(ctx.USERTYPE().getText(), ctx.USERTYPE().getText(), 0);
-                    }else{
-                        fw.write("Erro semântico: " + ctx.USERTYPE().getText()
+        if(ctx.SET() != null){
+            if (ctx.USERTYPE() != null){
+                if(escopoAtual.verificar(ctx.USERTYPE().getText()) == null){
+                    escopoAtual.inserir(ctx.USERTYPE().getText(), ctx.USERTYPE().getText(), 0);
+                }else{
+                    fw.println("Erro semântico: " + ctx.USERTYPE().getText()
                             + " declarada duas vezes num mesmo escopo\n");
-                        hasErros = true;
-                    }
-                }
-            }else if (ctx.DEFINE() != null){
-                if (ctx.CONSTANT() != null){
-                    if(escopoAtual.verificar(ctx.CONSTANT().getText()) == null){
-                        if (ctx.NUMBER() != null){
-                            escopoAtual.inserir(ctx.CONSTANT().getText(), "NUMBER", Double.parseDouble(ctx.NUMBER().getText()));
-                        }
-                    }else{
-                        fw.write("Erro semântico: " + ctx.CONSTANT().getText()
-                            + " declarada duas vezes num mesmo escopo\n");
-                        hasErros = true;
-                    }
-                }
-            }else{
-                if (ctx.IDENTIFIER() != null){
-                    if(escopoAtual.verificar(ctx.IDENTIFIER().getText()) == null){
-                        if(escopoAtual.verificar(ctx.type().getText()) != null){
-                            if(ctx.NUMBER() != null){
-                                escopoAtual.inserir(ctx.IDENTIFIER().getText(), ctx.type().getText(), Double.parseDouble(ctx.NUMBER().getText()));
-                            }else{
-                                escopoAtual.inserir(ctx.IDENTIFIER().getText(), ctx.type().getText(), 0);
-                            }
-                        }else{
-                            fw.write("Erro semântico: " + ctx.type().getText()
-                            + " não foi declarada nesse escopo\n");
-                            hasErros = true;
-                        }
-                    }else{
-                        fw.write("Erro semântico: " + ctx.IDENTIFIER().getText()
-                            + " declarada duas vezes num mesmo escopo\n");
-                        hasErros = true;
-                    }
+                    hasErros = true;
                 }
             }
-        } catch (IOException ex) {
-            Logger.getLogger(Builder.class.getName()).log(Level.SEVERE, null, ex);
+        }else if (ctx.DEFINE() != null){
+            if (ctx.CONSTANT() != null){
+                if(escopoAtual.verificar(ctx.CONSTANT().getText()) == null){
+                    if (ctx.NUMBER() != null){
+                        escopoAtual.inserir(ctx.CONSTANT().getText(), "NUMBER", Double.parseDouble(ctx.NUMBER().getText()));
+                    }
+                }else{
+                    fw.println("Erro semântico: " + ctx.CONSTANT().getText()
+                            + " declarada duas vezes num mesmo escopo\n");
+                    hasErros = true;
+                }
+            }
+        }else{
+            if (ctx.IDENTIFIER() != null){
+                if(escopoAtual.verificar(ctx.IDENTIFIER().getText()) == null){
+                    if(escopoAtual.verificar(ctx.type().getText()) != null){
+                        if(ctx.NUMBER() != null){
+                            escopoAtual.inserir(ctx.IDENTIFIER().getText(), ctx.type().getText(), Double.parseDouble(ctx.NUMBER().getText()));
+                        }else{
+                            escopoAtual.inserir(ctx.IDENTIFIER().getText(), ctx.type().getText(), 0);
+                        }
+                    }else{
+                        fw.println("Erro semântico: " + ctx.type().getText()
+                                + " não foi declarada nesse escopo\n");
+                        hasErros = true;
+                    }
+                }else{
+                    fw.println("Erro semântico: " + ctx.IDENTIFIER().getText()
+                            + " declarada duas vezes num mesmo escopo\n");
+                    hasErros = true;
+                }
+            }
         }
         
         return null;
@@ -117,57 +113,53 @@ public class Builder extends HPBaseVisitor{
     public Double visitBuild(HPParser.BuildContext ctx) {
         TabelaDeSimbolos escopoAtual = escoposAninhados.obterEscopoAtual();
         
-        try{
-            if(ctx.cmdAddRoom() != null){
-                for(TerminalNode tn : ctx.cmdAddRoom().IDENTIFIER()){
-                    EntradaTabelaDeSimbolos ntds = escopoAtual.verificar(tn.getText());
-                    if(ntds == null){
-                        fw.write("Erro semântico: " + tn.getText()
+        if(ctx.cmdAddRoom() != null){
+            for(TerminalNode tn : ctx.cmdAddRoom().IDENTIFIER()){
+                EntradaTabelaDeSimbolos ntds = escopoAtual.verificar(tn.getText());
+                if(ntds == null){
+                    fw.println("Erro semântico: " + tn.getText()
                             + " não foi declarada nesse escopo\n");
-                        hasErros = true;
-                    }else{
-                        ntds.active = true;
-                    }
-                }
-            }else if(ctx.cmdSubRoom() != null){
-                for(TerminalNode tn : ctx.cmdSubRoom().IDENTIFIER()){
-                    EntradaTabelaDeSimbolos ntds = escopoAtual.verificar(tn.getText());
-                    if(ntds == null){
-                        fw.write("Erro semântico: " + tn.getText()
-                            + " não foi declarada nesse escopo\n");
-                        hasErros = true;
-                    }else{
-                        ntds.active = false;
-                    }
-                }
-            }else if(ctx.cmdCreateAlert() != null){
-                for(TerminalNode tn : ctx.cmdCreateAlert().IDENTIFIER()){
-                    EntradaTabelaDeSimbolos ntds = escopoAtual.verificar(tn.getText());
-                    if(ntds == null){
-                        fw.write("Erro semântico: " + tn.getText()
-                            + " não foi declarada nesse escopo\n");
-                        hasErros = true;
-                    }
-                }
-                for(TerminalNode tn : ctx.cmdCreateAlert().CONSTANT()){
-                    EntradaTabelaDeSimbolos ntds = escopoAtual.verificar(tn.getText());
-                    if(ntds == null){
-                        fw.write("Erro semântico: " + tn.getText()
-                            + " não foi declarada nesse escopo\n");
-                        hasErros = true;
-                    }
-                }
-            }else if(ctx.cmdMeasureArea()!= null){
-                if(ctx.cmdMeasureArea().IDENTIFIER() != null){
-                    if(escopoAtual.verificar(ctx.cmdMeasureArea().IDENTIFIER().getText()) == null){
-                        fw.write("Erro semântico: " + ctx.cmdMeasureArea().IDENTIFIER().getText()
-                                + " não foi declarada nesse escopo\n");
-                        hasErros = true;
-                    }
+                    hasErros = true;
+                }else{
+                    ntds.active = true;
                 }
             }
-        } catch (IOException ex) {
-            Logger.getLogger(Builder.class.getName()).log(Level.SEVERE, null, ex);
+        }else if(ctx.cmdSubRoom() != null){
+            for(TerminalNode tn : ctx.cmdSubRoom().IDENTIFIER()){
+                EntradaTabelaDeSimbolos ntds = escopoAtual.verificar(tn.getText());
+                if(ntds == null){
+                    fw.println("Erro semântico: " + tn.getText()
+                            + " não foi declarada nesse escopo\n");
+                    hasErros = true;
+                }else{
+                    ntds.active = false;
+                }
+            }
+        }else if(ctx.cmdCreateAlert() != null){
+            for(TerminalNode tn : ctx.cmdCreateAlert().IDENTIFIER()){
+                EntradaTabelaDeSimbolos ntds = escopoAtual.verificar(tn.getText());
+                if(ntds == null){
+                    fw.println("Erro semântico: " + tn.getText()
+                            + " não foi declarada nesse escopo\n");
+                    hasErros = true;
+                }
+            }
+            for(TerminalNode tn : ctx.cmdCreateAlert().CONSTANT()){
+                EntradaTabelaDeSimbolos ntds = escopoAtual.verificar(tn.getText());
+                if(ntds == null){
+                    fw.println("Erro semântico: " + tn.getText()
+                            + " não foi declarada nesse escopo\n");
+                    hasErros = true;
+                }
+            }
+        }else if(ctx.cmdMeasureArea()!= null){
+            if(ctx.cmdMeasureArea().IDENTIFIER() != null){
+                if(escopoAtual.verificar(ctx.cmdMeasureArea().IDENTIFIER().getText()) == null){
+                    fw.println("Erro semântico: " + ctx.cmdMeasureArea().IDENTIFIER().getText()
+                            + " não foi declarada nesse escopo\n");
+                    hasErros = true;
+                }
+            }
         }
         
         return null;
@@ -226,11 +218,7 @@ public class Builder extends HPBaseVisitor{
                 }
             }
             if(cub == null){
-                try{
-                    fw.write("CUB nao definido. Impossivel calcular imposto!\n");
-                } catch (IOException ex) {
-                    Logger.getLogger(Builder.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                fw.println("CUB nao definido. Impossivel calcular imposto!\n");
             }else{
                 hasCub = true;
                 if(taxArea <= 100){
@@ -252,22 +240,31 @@ public class Builder extends HPBaseVisitor{
             areaTotal = -9999;
         }
         
-        try{
-            if(areaTotal == -9999){
-                fw.write("O imovel nao atende os requisitos minimos de comodos!\n");
-            }else if(areaTotal < 0){
-                fw.write("Area maior do que o maximo permitido!\n");
-            }else{
-                fw.write("A casa tera " + df.format(areaTotal) + " metros quadrados.\n");
-                if(hasCub){
-                    inssFinal = tax*0.368;
-                    fw.write("Construcao tera custo adicional de " +df.format(inssFinal)+ " em imposto.\n");
-                }
+        String msg;
+        if(areaTotal == -9999){
+            msg = "O imovel nao atende os requisitos minimos de comodos!\n";
+            Results(msg);
+        }else if(areaTotal < 0){
+            msg = "Area maior do que o maximo permitido!\n";
+            Results(msg);
+        }else{
+            msg = "A casa tera " + df.format(areaTotal) + " metros quadrados.\n";
+            Results(msg);
+            if(hasCub){
+                inssFinal = tax*0.368;
+                msg = "Construcao tera custo adicional de " +df.format(inssFinal)+ " em imposto.\n";
+                Results(msg);
             }
-        } catch (IOException ex) {
-            Logger.getLogger(Builder.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
         
         return areaTotal;
+    }
+    public void Results(String msg){
+        this.fw.println("<table style=\"border-collapse: collapse; border: 1px solid black; text-align: center; width: 70%; table-layout: fixed\">");
+        this.fw.println("<tr style=\"border: 1px solid black; background-color: #8B0000; color: white;\">");
+        this.fw.println("<th style=\"border: 1px solid black;\">" + msg + " </th>");
+        this.fw.println("</tr>");
+        this.fw.println("<tr>");
     }
 }

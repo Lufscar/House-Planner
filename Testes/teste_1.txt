@@ -4,11 +4,7 @@
 construction apartamento is
 
 set AreaDeServico;
-<<<<<<< Updated upstream
-declare _cozinha (25) as Kitchen;
-=======
 declare _cozinha(30) as Kitchen;
->>>>>>> Stashed changes
 declare _banheiro (20) as Bathroom; 
 declare _sala (30) as LivingRoom;
 declare _quartoCasal (30) as Bedroom; 
@@ -18,12 +14,8 @@ declare _areaServico (20) as AreaDeServico;
 #measureArea(_sala);
 #measureArea(_quartoCasal);
 addRoom(_sala, _quartoCasal);
-<<<<<<< Updated upstream
-addRoom(_banheiro, _cozinha);
-=======
 addRoom(_banheiro);
 addRoom(_cozinha);
->>>>>>> Stashed changes
 addRoom(_areaServico);
 buildHouse();
 

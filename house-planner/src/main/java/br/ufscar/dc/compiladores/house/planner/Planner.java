@@ -29,10 +29,10 @@ public class Planner {
         Builder b = new Builder(saida);
         while ((t = lex.nextToken()).getType() != Token.EOF) {
             if (lex.VOCABULARY.getDisplayName(t.getType()) == "ERRO_SIMB") {
-                b.Results("Erro Lexico: Linha " + t.getLine() + ": " + t.getText() + " - simbolo nao identificado\n");
+                b.Results("Erro Lexico: Linha " + t.getLine() + "- simbolo " + t.getText() + " nao identificado\n");
             }
             if (lex.VOCABULARY.getDisplayName(t.getType()) == "ERRO_CAD") {
-                b.Results("Erro Lexico: Linha " + t.getLine() + ": cadeia literal nao fechada\n");
+                b.Results("Erro Lexico: Linha " + t.getLine() + "- cadeia literal nao fechada\n");
             }
         }
 

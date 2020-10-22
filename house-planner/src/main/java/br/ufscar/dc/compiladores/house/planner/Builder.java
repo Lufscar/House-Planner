@@ -19,7 +19,7 @@ public class Builder extends HPBaseVisitor {
 
     Out saida = new Out();
     Escopos escoposAninhados = new Escopos();
-    boolean hasErros = false;
+    boolean noError = true;
 
     Builder(Out saida) {
         this.saida = saida;
@@ -44,7 +44,7 @@ public class Builder extends HPBaseVisitor {
         for (var bc : ctx.build()) {
             visitBuild(bc);
         }
-        if (!hasErros) {
+        if (noError) {
             visitCmdBuildHouse(ctx.cmdBuildHouse());
         }
 
@@ -66,7 +66,7 @@ public class Builder extends HPBaseVisitor {
                 } else {
                     Results("Erro semântico: " + ctx.USERTYPE().getText()
                             + " declarada duas vezes num mesmo escopo\n");
-                    hasErros = true;
+                    noError = false;
                 }
             }
         } else if (ctx.DEFINE() != null) {
@@ -78,7 +78,7 @@ public class Builder extends HPBaseVisitor {
                 } else {
                     Results("Erro semântico: " + ctx.CONSTANT().getText()
                             + " declarada duas vezes num mesmo escopo\n");
-                    hasErros = true;
+                    noError = false;
                 }
             }
         } else {
@@ -93,12 +93,12 @@ public class Builder extends HPBaseVisitor {
                     } else {
                         Results("Erro semântico: " + ctx.type().getText()
                                 + " não foi declarada nesse escopo\n");
-                        hasErros = true;
+                        noError = false;
                     }
                 } else {
                     Results("Erro semântico: " + ctx.IDENTIFIER().getText()
                             + " declarada duas vezes num mesmo escopo\n");
-                    hasErros = true;
+                    noError = false;
                 }
             }
         }
@@ -116,7 +116,7 @@ public class Builder extends HPBaseVisitor {
                 if (ntds == null) {
                     Results("Erro semântico: " + tn.getText()
                             + " não foi declarada nesse escopo\n");
-                    hasErros = true;
+                    noError = false;
                 } else {
                     ntds.active = true;
                 }
@@ -127,7 +127,7 @@ public class Builder extends HPBaseVisitor {
                 if (ntds == null) {
                     Results("Erro semântico: " + tn.getText()
                             + " não foi declarada nesse escopo\n");
-                    hasErros = true;
+                    noError = false;
                 } else {
                     ntds.active = false;
                 }
@@ -138,7 +138,7 @@ public class Builder extends HPBaseVisitor {
                 if (ntds == null) {
                     Results("Erro semântico: " + tn.getText()
                             + " não foi declarada nesse escopo\n");
-                    hasErros = true;
+                    noError = false;
                 }
             }
             for (TerminalNode tn : ctx.cmdCreateAlert().CONSTANT()) {
@@ -146,7 +146,7 @@ public class Builder extends HPBaseVisitor {
                 if (ntds == null) {
                     Results("Erro semântico: " + tn.getText()
                             + " não foi declarada nesse escopo\n");
-                    hasErros = true;
+                    noError = false;
                 }
             }
         } else if (ctx.cmdMeasureArea() != null) {
@@ -154,7 +154,7 @@ public class Builder extends HPBaseVisitor {
                 if (escopoAtual.verificar(ctx.cmdMeasureArea().IDENTIFIER().getText()) == null) {
                     Results("Erro semântico: " + ctx.cmdMeasureArea().IDENTIFIER().getText()
                             + " não foi declarada nesse escopo\n");
-                    hasErros = true;
+                    noError = false;
                 }
             }
         }
@@ -163,13 +163,15 @@ public class Builder extends HPBaseVisitor {
 
     @Override
     public Double visitCmdBuildHouse(HPParser.CmdBuildHouseContext ctx) {
-        Tabela();
-        double areaTotal = 0;
+            Tabela();
+            
+            double areaTotal = 0;
         boolean hasLiv = false;
         boolean hasBed = false;
         boolean hasBath = false;
         boolean hasKit = false;
         boolean hasCub = false;
+        boolean hasError = false;
 
         int bathCount = 0;
         double taxArea = 0;
@@ -220,9 +222,8 @@ public class Builder extends HPBaseVisitor {
                 }
             }
             if (cub == null) {
-                String msg;
-                msg = "CUB nao definido. Impossivel calcular imposto!\n";
-                Results(msg);
+                Results("CUB nao definido. Impossivel calcular imposto!\n");
+                hasError = true;
             } else {
                 hasCub = true;
                 if (taxArea <= 100) {
@@ -245,10 +246,10 @@ public class Builder extends HPBaseVisitor {
         }
         String msg;
         if (areaTotal == -9999) {
-            msg = "O imovel nao atende os requisitos minimos de comodos!\n";
+            msg = "ATENÇÃO! O imovel ainda nao atende os requisitos minimos de comodos!\n";
             Results(msg);
         } else if (areaTotal < 0) {
-            msg = "Area maior do que o maximo permitido!\n";
+            msg = "ATENÇÃO! Area maior do que o maximo permitido!\n";
             Results(msg);
         } else {
             msg = "A casa tera " + df.format(areaTotal) + " metros quadrados.\n";
@@ -260,7 +261,6 @@ public class Builder extends HPBaseVisitor {
             }
 
         }
-
         return areaTotal;
     }
 

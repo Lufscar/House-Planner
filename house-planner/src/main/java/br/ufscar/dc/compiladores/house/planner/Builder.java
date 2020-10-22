@@ -74,7 +74,11 @@ public class Builder extends HPBaseVisitor{
                 if (ctx.IDENTIFIER() != null){
                     if(escopoAtual.verificar(ctx.IDENTIFIER().getText()) == null){
                         if(escopoAtual.verificar(ctx.type().getText()) != null){
-                            escopoAtual.inserir(ctx.IDENTIFIER().getText(), ctx.type().getText(), 0);
+                            if(ctx.NUMBER() != null){
+                                escopoAtual.inserir(ctx.IDENTIFIER().getText(), ctx.type().getText(), Double.parseDouble(ctx.NUMBER().getText()));
+                            }else{
+                                escopoAtual.inserir(ctx.IDENTIFIER().getText(), ctx.type().getText(), 0);
+                            }
                         }else{
                             fw.write("Erro semântico: " + ctx.type().getText()
                             + " não foi declarada nesse escopo\n");
@@ -126,6 +130,13 @@ public class Builder extends HPBaseVisitor{
                             + " não foi declarada nesse escopo\n");
                     }
                 }
+                for(TerminalNode tn : ctx.cmdCreateAlert().CONSTANT()){
+                    EntradaTabelaDeSimbolos ntds = escopoAtual.verificar(tn.getText());
+                    if(ntds == null){
+                        fw.write("Erro semântico: " + tn.getText()
+                            + " não foi declarada nesse escopo\n");
+                    }
+                }
             }else if(ctx.cmdMeasureArea()!= null){
                 if(ctx.cmdMeasureArea().IDENTIFIER() != null){
                     if(escopoAtual.verificar(ctx.cmdMeasureArea().IDENTIFIER().getText()) == null){
@@ -144,6 +155,11 @@ public class Builder extends HPBaseVisitor{
     @Override
     public Double visitCmdBuildHouse(HPParser.CmdBuildHouseContext ctx) {
         double areaTotal = 0;
+        boolean hasLiv = false;
+        boolean hasBed = false;
+        boolean hasBath = false;
+        boolean hasKit = false;
+        
         for(TabelaDeSimbolos ts : escoposAninhados.percorrerEscoposAninhados()){
             EntradaTabelaDeSimbolos max = ts.verificar("MAX");
             for(var num : ts.valor()){
@@ -151,7 +167,10 @@ public class Builder extends HPBaseVisitor{
                     System.out.println(num.nome + " : " + num.area);
                     areaTotal += num.area;
                 }
-                
+                if(num.nome == "LivingRoom") hasLiv = true;
+                if(num.nome == "Bedroom") hasBed = true;
+                if(num.nome == "Bathroom") hasBath = true;
+                if(num.nome == "Kitchen") hasKit = true;
             }
             if(max != null){
                 if(areaTotal > max.area){
@@ -159,6 +178,8 @@ public class Builder extends HPBaseVisitor{
                 }
             }
         }
+        
+        if(!hasLiv || !hasBed || !hasBath || !hasKit) areaTotal = -9999;
         
         return areaTotal;
     }

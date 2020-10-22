@@ -4,6 +4,7 @@
 construction apartamento is
 
 set AreaDeServico;
+declare _cozinha (25) as Kitchen;
 declare _banheiro (20) as Bathroom; 
 declare _sala (30) as LivingRoom;
 declare _quartoCasal (30) as Bedroom; 
@@ -13,7 +14,7 @@ declare _areaServico (20) as AreaDeServico;
 #measureArea(_sala);
 #measureArea(_quartoCasal);
 addRoom(_sala, _quartoCasal);
-addRoom(_banheiro);
+addRoom(_banheiro, _cozinha);
 addRoom(_areaServico);
 buildHouse();
 

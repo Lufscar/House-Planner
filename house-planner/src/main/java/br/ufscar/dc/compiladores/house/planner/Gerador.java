@@ -31,7 +31,7 @@ public class Gerador extends HPBaseVisitor<String> {
         this.saida.println("<center>\n");
 
         ctx.declaration().forEach(dec -> visitDeclaration(dec));
-        ctx.build().forEach(build -> visitBuild(build));
+        ctx.body().forEach(body -> visitBody(body));
 
         Room();
 

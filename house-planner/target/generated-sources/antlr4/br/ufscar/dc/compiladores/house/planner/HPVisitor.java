@@ -29,6 +29,12 @@ public interface HPVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitType(HPParser.TypeContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link HPParser#body}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBody(HPParser.BodyContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link HPParser#basicType}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

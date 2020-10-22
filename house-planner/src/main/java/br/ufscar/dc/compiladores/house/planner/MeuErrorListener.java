@@ -20,6 +20,7 @@ public class MeuErrorListener extends BaseErrorListener {
     
     // O arquivo de saída é criado usando FileWriter.
     FileWriter fw;
+    boolean hasErros = false;
     
     //Inicialização
     MeuErrorListener(FileWriter fw){
@@ -53,5 +54,7 @@ public class MeuErrorListener extends BaseErrorListener {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
+            
+            hasErros = true;
         }
     }

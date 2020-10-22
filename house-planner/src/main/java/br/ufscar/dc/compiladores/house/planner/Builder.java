@@ -7,6 +7,8 @@ package br.ufscar.dc.compiladores.house.planner;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +19,7 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 public class Builder extends HPBaseVisitor{
     FileWriter fw;
     Escopos escoposAninhados = new Escopos();
+    
     
     Builder(FileWriter fw){
         this.fw = fw;
@@ -94,7 +97,6 @@ public class Builder extends HPBaseVisitor{
 
     @Override
     public Double visitBuild(HPParser.BuildContext ctx) {
-        double area = 0;
         TabelaDeSimbolos escopoAtual = escoposAninhados.obterEscopoAtual();
         
         try{
@@ -155,27 +157,91 @@ public class Builder extends HPBaseVisitor{
         boolean hasBed = false;
         boolean hasBath = false;
         boolean hasKit = false;
+        boolean hasCub = false;
+        
+        int bathCount = 0;
+        double taxArea = 0;
+        double tax = 0;
+        double inssFinal = 0;
+        
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
         
         for(TabelaDeSimbolos ts : escoposAninhados.percorrerEscoposAninhados()){
             EntradaTabelaDeSimbolos max = ts.verificar("MAX");
+            EntradaTabelaDeSimbolos cub = ts.verificar("CUB");
+            
             for(var num : ts.valor()){
                 if(num.active){
-                    System.out.println(num.nome + " : " + num.area);
-                    areaTotal += num.area;
+                    if(num.nome == "Garage" || num.nome == "Garagem" ||
+                            num.nome == "Balcony" || num.nome == "Varanda"){
+                        taxArea += num.area/2;
+                        areaTotal += num.area;
+                    }else{
+                        taxArea += num.area;
+                        areaTotal += num.area;
+                    }
                 }
-                if(num.nome == "LivingRoom") hasLiv = true;
-                if(num.nome == "Bedroom") hasBed = true;
-                if(num.nome == "Bathroom") hasBath = true;
-                if(num.nome == "Kitchen") hasKit = true;
+                if(num.nome == "LivingRoom") {
+                    hasLiv = true;
+                }
+                if(num.nome == "Bedroom") {
+                    hasBed = true;
+                }
+                if(num.nome == "Kitchen") {
+                    hasKit = true;
+                }
+                if(num.nome == "Bathroom"){
+                    hasBath = true;
+                    bathCount++;
+                }
             }
             if(max != null){
                 if(areaTotal > max.area){
                     areaTotal = -areaTotal;
                 }
             }
+            if(cub == null){
+                try{
+                    fw.write("CUB nao definido. Impossivel calcular imposto!\n");
+                } catch (IOException ex) {
+                    Logger.getLogger(Builder.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }else{
+                hasCub = true;
+                if(taxArea <= 100){
+                    tax = taxArea*cub.area*0.04;
+                }else{
+                    if(taxArea <= 200){
+                        tax = 100*cub.area*0.04 + (taxArea-100)*cub.area*0.08;
+                    }else if(taxArea <= 300){
+                        tax = 100*cub.area*0.04 + (taxArea-100)*cub.area*0.14;
+                    }else{
+                        tax = 100*cub.area*0.04 + (taxArea-100)*cub.area*0.2;
+                    }
+                }
+                
+            }
+        }
+        if(!hasLiv || !hasBed || !hasBath || !hasKit) {
+            areaTotal = -9999;
         }
         
-        if(!hasLiv || !hasBed || !hasBath || !hasKit) areaTotal = -9999;
+        try{
+            if(areaTotal == -9999){
+                fw.write("O imovel nao atende os requisitos minimos de comodos!\n");
+            }else if(areaTotal < 0){
+                fw.write("Area maior do que o maximo permitido!\n");
+            }else{
+                fw.write("A casa tera " + df.format(areaTotal) + " metros quadrados.\n");
+                if(hasCub){
+                    inssFinal = tax*0.368;
+                    fw.write("Construcao tera custo adicional de " +df.format(inssFinal)+ " em imposto.\n");
+                }
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Builder.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         return areaTotal;
     }

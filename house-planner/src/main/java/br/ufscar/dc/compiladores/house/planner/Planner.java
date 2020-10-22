@@ -46,15 +46,9 @@ public class Planner {
             
             Builder b = new Builder(outFile);
             double val = b.visitMap(map);
-            if(val < 0){
-                System.out.println("Area maior do que o maximo permitido!");
-            }else if(val == -9999){
-                System.out.println("O imovel nao atende os requisitos minimos de comodos!");
-            }else{
-                System.out.println("A casa tera " + val + " metros quadrados.");
-            }
+            
         }
-        outFile.write("Fim da compilação!\n");
+        //outFile.write("Fim da compilação!\n");
         outFile.close();
     }
 }

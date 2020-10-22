@@ -17,10 +17,7 @@ br\ufscar\dc\compiladores\house\planner\HPVisitor.class
 br\ufscar\dc\compiladores\house\planner\HPParser$CmdAddRoomContext.class
 br\ufscar\dc\compiladores\house\planner\HPParser$BasicTypeContext.class
 br\ufscar\dc\compiladores\house\planner\Planner.class
-<<<<<<< Updated upstream
 br\ufscar\dc\compiladores\house\planner\HPParser$BodyContext.class
-=======
->>>>>>> Stashed changes
 br\ufscar\dc\compiladores\house\planner\Out.class
 br\ufscar\dc\compiladores\house\planner\HPParser$TypeContext.class
 br\ufscar\dc\compiladores\house\planner\HPParser$MapContext.class

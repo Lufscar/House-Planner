@@ -50,18 +50,8 @@ public class Planner {
         if (lex.nextToken().getType() == Token.EOF) {
             MeuErrorListener error = new MeuErrorListener(outFile);
             psr.addErrorListener(error);
-<<<<<<< Updated upstream
-            HPParser.MapContext map = psr.map();
-            if(!error.hasErros){
-                Builder b = new Builder(outFile);
-                double val = b.visitMap(map);
-            }
-            
-            
-=======
             Builder b = new Builder(outFile);
             double val = b.visitMap(map);
->>>>>>> Stashed changes
         }
         outFile.close();
 

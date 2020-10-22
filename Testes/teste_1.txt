@@ -4,19 +4,19 @@
 construction apartamento is
 
 set AreaDeServico;
-declare _banheiro as Bathroom; 
-declare _sala as LivingRoom;
-declare _quartoCasal as Bedroom; 
-define AREA as 55.4;
-declare _areaServico as AreaDeServico;
+declare _banheiro (20) as Bathroom; 
+declare _sala (30) as LivingRoom;
+declare _quartoCasal (30) as Bedroom; 
+define CUB as 55.4
+declare _areaServico (20) as AreaDeServico;
 
-measureArea(_sala);
-measureArea(_quartoCasal);
+#measureArea(_sala);
+#measureArea(_quartoCasal);
 addRoom(_sala, _quartoCasal);
 addRoom(_banheiro);
 addRoom(_areaServico);
 buildHouse();
 
-createAlert('Lembre que a area total é: ' AREA);
+createAlert('Lembre que o CUB é: ' CUB);
 subRoom(_areaServico);
 buildHouse();

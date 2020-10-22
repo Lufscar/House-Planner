@@ -40,15 +40,10 @@ public class Gerador extends HPBaseVisitor<String> {
 
     @Override
     public String visitDeclaration(HPParser.DeclarationContext ctx) {
-        this.listaDeComodos.add(new Room(0, ctx.IDENTIFIER().getText(), ctx.type().getText()));
+        float area;
+        area = Float.valueOf(ctx.NUMBER().getText()).floatValue();
+        this.listaDeComodos.add(new Room( area, ctx.IDENTIFIER().getText(), ctx.type().getText()));
         return null;
-    }
-
-    @Override
-    public float visitBuild(HPParser.BuildContext ctx) {
-        if (ctx.cmdMeasureArea().IDENTIFIER() != null) {
-            return ctx.IDENTIFIER().getText();
-        }
     }
 
     public void Room() {

@@ -10,12 +10,16 @@ import org.antlr.v4.runtime.Token;
 
 public class Gerador extends HPBaseVisitor<String> {
 
-    private final Out saida;
+    final Out saida;
     private final List<Room> listaDeComodos;
 
     public Gerador(Out saida) {
         this.saida = saida;
         this.listaDeComodos = new ArrayList<>();
+    }
+
+    Gerador() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

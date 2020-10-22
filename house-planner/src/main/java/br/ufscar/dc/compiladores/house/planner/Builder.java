@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* Autora: Luciana Oliveira de Souza Gomes
+* Autor: Vinicius de Oliveira Peixoto
+*/
+
 package br.ufscar.dc.compiladores.house.planner;
 
 import java.io.FileWriter;
@@ -14,10 +14,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
-/**
- *
- * @author Vinicius Peixoto
- */
 public class Builder extends HPBaseVisitor{
     FileWriter fw;
     Escopos escoposAninhados = new Escopos();

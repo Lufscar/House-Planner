@@ -1,5 +1,3 @@
-br\ufscar\dc\compiladores\house\planner\HPParser$CmdAddRoomContext.class
-br\ufscar\dc\compiladores\house\planner\HPParser$BasicTypeContext.class
 br\ufscar\dc\compiladores\house\planner\HPParser$NewTypeContext.class
 br\ufscar\dc\compiladores\house\planner\HPParser$DeclarationContext.class
 br\ufscar\dc\compiladores\house\planner\HPParser$CmdCreateAlertContext.class
@@ -8,10 +6,13 @@ br\ufscar\dc\compiladores\house\planner\HPParser.class
 br\ufscar\dc\compiladores\house\planner\HPParser$CmdMeasureAreaContext.class
 br\ufscar\dc\compiladores\house\planner\HPParser$CmdBuildHouseContext.class
 br\ufscar\dc\compiladores\house\planner\HPBaseListener.class
+br\ufscar\dc\compiladores\house\planner\HPLexer.class
+br\ufscar\dc\compiladores\house\planner\HPParser$CmdSubRoomContext.class
+br\ufscar\dc\compiladores\house\planner\HPVisitor.class
+br\ufscar\dc\compiladores\house\planner\HPParser$CmdAddRoomContext.class
+br\ufscar\dc\compiladores\house\planner\HPParser$BasicTypeContext.class
+br\ufscar\dc\compiladores\house\planner\HPParser$BodyContext.class
 br\ufscar\dc\compiladores\house\planner\HPParser$TypeContext.class
 br\ufscar\dc\compiladores\house\planner\HPParser$MapContext.class
 br\ufscar\dc\compiladores\house\planner\HPBaseVisitor.class
-br\ufscar\dc\compiladores\house\planner\HPLexer.class
-br\ufscar\dc\compiladores\house\planner\HPParser$CmdSubRoomContext.class
 br\ufscar\dc\compiladores\house\planner\HPListener.class
-br\ufscar\dc\compiladores\house\planner\HPVisitor.class

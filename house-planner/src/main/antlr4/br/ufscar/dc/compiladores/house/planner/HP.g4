@@ -16,7 +16,7 @@ OPENPAR:        '(';
 CLOSEPAR:       ')';
 
 map:
-	CONSTRUCTION BLOCKNAME IS declaration* (build* cmdBuildHouse)* EOF;
+	CONSTRUCTION BLOCKNAME IS declaration* body* EOF;
 
 declaration:
 	DECLARE IDENTIFIER AS type SEMICOLON	|
@@ -39,6 +39,9 @@ BLOCKNAME:
 type:
 	newType	|
 	basicType;
+
+body:
+    build* cmdBuildHouse;
 
 basicType:
 	'Bedroom'		|

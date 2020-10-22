@@ -38,6 +38,16 @@ public interface HPListener extends ParseTreeListener {
 	 */
 	void exitType(HPParser.TypeContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link HPParser#body}.
+	 * @param ctx the parse tree
+	 */
+	void enterBody(HPParser.BodyContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HPParser#body}.
+	 * @param ctx the parse tree
+	 */
+	void exitBody(HPParser.BodyContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link HPParser#basicType}.
 	 * @param ctx the parse tree
 	 */

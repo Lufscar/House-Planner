@@ -47,9 +47,11 @@ public class Planner {
             MeuErrorListener error = new MeuErrorListener(outFile);
             psr.addErrorListener(error);
             HPParser.MapContext map = psr.map();
+            if(!error.hasErros){
+                Builder b = new Builder(outFile);
+                double val = b.visitMap(map);
+            }
             
-            Builder b = new Builder(outFile);
-            double val = b.visitMap(map);
             
         }
         //outFile.write("Fim da compilação!\n");

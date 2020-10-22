@@ -23,6 +23,7 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 public class Builder extends HPBaseVisitor{
     FileWriter fw;
     Escopos escoposAninhados = new Escopos();
+    boolean hasErros = false;
     
     
     Builder(FileWriter fw){
@@ -35,14 +36,27 @@ public class Builder extends HPBaseVisitor{
         for(var dec : ctx.declaration()){
             visitDeclaration(dec);
         }
-        for(HPParser.BuildContext bc : ctx.build()){
-            visitBuild(bc);
+        for(HPParser.BodyContext bc : ctx.body()){
+            visitBody(bc);
         }
-        for(HPParser.CmdBuildHouseContext bh : ctx.cmdBuildHouse()){
-            areaTotal += visitCmdBuildHouse(bh);
-        }
+        
         return areaTotal;
     }
+
+    @Override
+    public Object visitBody(HPParser.BodyContext ctx) {
+        
+        for(var bc : ctx.build()){
+            visitBuild(bc);
+        }
+        if(!hasErros){
+            visitCmdBuildHouse(ctx.cmdBuildHouse());
+        }
+        
+        return null;
+    }
+    
+    
 
     @Override
     public Double visitDeclaration(HPParser.DeclarationContext ctx) {
@@ -60,6 +74,7 @@ public class Builder extends HPBaseVisitor{
                     }else{
                         fw.write("Erro semântico: " + ctx.USERTYPE().getText()
                             + " declarada duas vezes num mesmo escopo\n");
+                        hasErros = true;
                     }
                 }
             }else if (ctx.DEFINE() != null){
@@ -71,6 +86,7 @@ public class Builder extends HPBaseVisitor{
                     }else{
                         fw.write("Erro semântico: " + ctx.CONSTANT().getText()
                             + " declarada duas vezes num mesmo escopo\n");
+                        hasErros = true;
                     }
                 }
             }else{
@@ -85,10 +101,12 @@ public class Builder extends HPBaseVisitor{
                         }else{
                             fw.write("Erro semântico: " + ctx.type().getText()
                             + " não foi declarada nesse escopo\n");
+                            hasErros = true;
                         }
                     }else{
                         fw.write("Erro semântico: " + ctx.IDENTIFIER().getText()
                             + " declarada duas vezes num mesmo escopo\n");
+                        hasErros = true;
                     }
                 }
             }
@@ -110,6 +128,7 @@ public class Builder extends HPBaseVisitor{
                     if(ntds == null){
                         fw.write("Erro semântico: " + tn.getText()
                             + " não foi declarada nesse escopo\n");
+                        hasErros = true;
                     }else{
                         ntds.active = true;
                     }
@@ -120,6 +139,7 @@ public class Builder extends HPBaseVisitor{
                     if(ntds == null){
                         fw.write("Erro semântico: " + tn.getText()
                             + " não foi declarada nesse escopo\n");
+                        hasErros = true;
                     }else{
                         ntds.active = false;
                     }
@@ -130,6 +150,7 @@ public class Builder extends HPBaseVisitor{
                     if(ntds == null){
                         fw.write("Erro semântico: " + tn.getText()
                             + " não foi declarada nesse escopo\n");
+                        hasErros = true;
                     }
                 }
                 for(TerminalNode tn : ctx.cmdCreateAlert().CONSTANT()){
@@ -137,6 +158,7 @@ public class Builder extends HPBaseVisitor{
                     if(ntds == null){
                         fw.write("Erro semântico: " + tn.getText()
                             + " não foi declarada nesse escopo\n");
+                        hasErros = true;
                     }
                 }
             }else if(ctx.cmdMeasureArea()!= null){
@@ -144,6 +166,7 @@ public class Builder extends HPBaseVisitor{
                     if(escopoAtual.verificar(ctx.cmdMeasureArea().IDENTIFIER().getText()) == null){
                         fw.write("Erro semântico: " + ctx.cmdMeasureArea().IDENTIFIER().getText()
                                 + " não foi declarada nesse escopo\n");
+                        hasErros = true;
                     }
                 }
             }

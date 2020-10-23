@@ -1,3 +1,7 @@
+/*
+* Autora: Luciana Oliveira de Souza Gomes
+* Autor: Vinicius de Oliveira Peixoto
+ */
 
 package br.ufscar.dc.compiladores.house.planner;
 

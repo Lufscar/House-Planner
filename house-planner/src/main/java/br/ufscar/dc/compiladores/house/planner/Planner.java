@@ -20,8 +20,7 @@ import org.antlr.v4.runtime.Token;
 public class Planner {
 
     public static void main(String args[]) throws IOException {
-        //FileWriter outFile = new FileWriter(args[1]); //arquivo de saída de erros
-        Out saida = new Out();//buffer
+        Out saida = new Out();
 
         CharStream cs = CharStreams.fromFileName(args[0]);
         HPLexer lex = new HPLexer(cs);
@@ -36,9 +35,7 @@ public class Planner {
             }
         }
 
-        /*
-        Análise Sintática e Semântica
-         */
+        //Análise Sintática e Semântica
         if (lex.nextToken().getType() == Token.EOF && !saida.mod) {
             lex.reset();
             CommonTokenStream tokens = new CommonTokenStream(lex);
@@ -48,14 +45,11 @@ public class Planner {
             psr.addErrorListener(error);
             double val = b.visitMap(map);
         }
-        //outFile.close();
 
-        
-       //Gerador de código html
+        //Gerador de código html
         try (PrintWriter generated = new PrintWriter(args[1])) {
             generated.print(saida.toString());
         }
-        //Fim Gerador
-         
+
     }
 }

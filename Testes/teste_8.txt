@@ -11,8 +11,8 @@ define CUB as 55.4
 declare _areaServico (20) as AreaDeServico;
 declare _jardim (10) as Quintal;
 
-#measureArea(_sala);
-#measureArea(_quartoCasal);
+measureArea(_sala);
+measureArea(_quartoCasal);
 addRoom(_sala, _quartoCasal);
 addRoom(_banheiro);
 addRoom(_cozinha);

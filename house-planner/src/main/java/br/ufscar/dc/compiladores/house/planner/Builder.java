@@ -163,9 +163,9 @@ public class Builder extends HPBaseVisitor {
 
     @Override
     public Double visitCmdBuildHouse(HPParser.CmdBuildHouseContext ctx) {
-            Tabela();
-            
-            double areaTotal = 0;
+        Tabela();
+
+        double areaTotal = 0;
         boolean hasLiv = false;
         boolean hasBed = false;
         boolean hasBath = false;
@@ -264,7 +264,7 @@ public class Builder extends HPBaseVisitor {
         return areaTotal;
     }
 
-    public void Tabela(){
+    public void Tabela() {
         this.saida.println("<html>");
         this.saida.println("<head>\n");
         this.saida.println("</head>\n");
@@ -278,7 +278,7 @@ public class Builder extends HPBaseVisitor {
         this.saida.println("<th style=\"border: 1px solid black;\">Área</th>");
         this.saida.println("</tr>");
     }
-    
+
     public void Results(String msg) {
         this.saida.println("<table style=\"border-collapse: collapse; border: 1px solid black; text-align: center; width: 70%; table-layout: fixed\">");
         this.saida.println("<tr style=\"border: 1px solid black; background-color: #8B0000; color: white;\">");

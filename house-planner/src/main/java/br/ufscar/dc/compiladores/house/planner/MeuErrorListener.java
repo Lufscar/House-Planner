@@ -4,14 +4,9 @@
  */
 package br.ufscar.dc.compiladores.house.planner;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
-import org.antlr.v4.runtime.Token;
 
 /*
  * Classe para detecção de erros sintáticos

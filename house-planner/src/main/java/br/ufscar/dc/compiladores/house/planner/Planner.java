@@ -4,39 +4,35 @@
  */
 package br.ufscar.dc.compiladores.house.planner;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.System.out;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Token;
 
 public class Planner {
 
     public static void main(String args[]) throws IOException {
         Out saida = new Out();
-
         CharStream cs = CharStreams.fromFileName(args[0]);
         HPLexer lex = new HPLexer(cs);
         Token t = null;
         Builder b = new Builder(saida);
+        b.Inicio();
         while ((t = lex.nextToken()).getType() != Token.EOF) {
-            if (lex.VOCABULARY.getDisplayName(t.getType()) == "ERRO_SIMB") {
+            if ("ERRO_SIMB".equals(HPLexer.VOCABULARY.getDisplayName(t.getType()))) {
                 b.Results("Erro Lexico: Linha " + t.getLine() + "- simbolo " + t.getText() + " nao identificado\n");
+                break;
             }
-            if (lex.VOCABULARY.getDisplayName(t.getType()) == "ERRO_CAD") {
+            if ("ERRO_CAD".equals(HPLexer.VOCABULARY.getDisplayName(t.getType()))) {
                 b.Results("Erro Lexico: Linha " + t.getLine() + "- cadeia literal nao fechada\n");
+                break;
             }
         }
 
         //Análise Sintática e Semântica
-        if (lex.nextToken().getType() == Token.EOF && !saida.mod) {
+        if (lex.nextToken().getType() == Token.EOF) {
             lex.reset();
             CommonTokenStream tokens = new CommonTokenStream(lex);
             HPParser psr = new HPParser(tokens);
@@ -47,6 +43,7 @@ public class Planner {
         }
 
         //Gerador de código html
+        b.Final();
         try (PrintWriter generated = new PrintWriter(args[1])) {
             generated.print(saida.toString());
         }

@@ -22,10 +22,6 @@ class Out {
         cont.append("\n");
     }
 
-    public boolean ismod() {
-        return mod;
-    }
-
     @Override
     public String toString() {
         return cont.toString();

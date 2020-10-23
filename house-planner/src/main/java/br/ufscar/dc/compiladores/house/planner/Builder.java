@@ -4,15 +4,8 @@
  */
 package br.ufscar.dc.compiladores.house.planner;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 public class Builder extends HPBaseVisitor {
@@ -264,26 +257,39 @@ public class Builder extends HPBaseVisitor {
         return areaTotal;
     }
 
-    public void Tabela() {
+    public void Inicio() {
         this.saida.println("<html>");
         this.saida.println("<head>\n");
+        this.saida.println("<font size=\"+2\" face=\"Verdana\">");
+        this.saida.println("<title> House Planner Project </title>"); 
+        this.saida.println("</font>");
         this.saida.println("</head>\n");
-        this.saida.println("<title> House Planner </title>");
         this.saida.println("<body>\n");
+        this.saida.println("<font face=\"Verdana\">");
         this.saida.println("<center>\n");
-        this.saida.println("<table style=\"border-collapse: collapse; border: 1px solid black; text-align: center; width: 70%; table-layout: fixed\">");
+    }
+
+    public void Tabela() {
+        this.saida.println("<table style=\"border-collapse: collapse; border: 1px solid black; text-align: center; width: 80%; table-layout: fixed\">");
         this.saida.println("<tr style=\"border: 1px solid black; background-color: #E25822; color: white;\">");
-        this.saida.println("<th style=\"border: 1px solid black;\">Tipo</th>");
-        this.saida.println("<th style=\"border: 1px solid black;\">Nome</th>");
-        this.saida.println("<th style=\"border: 1px solid black;\">Área</th>");
+        this.saida.println("<th style=\"border: 2px solid black;\">Tipo</th>");
+        this.saida.println("<th style=\"border: 2px solid black;\">Nome</th>");
+        this.saida.println("<th style=\"border: 2px solid black;\">Área</th>");
         this.saida.println("</tr>");
     }
 
     public void Results(String msg) {
-        this.saida.println("<table style=\"border-collapse: collapse; border: 1px solid black; text-align: center; width: 70%; table-layout: fixed\">");
+        this.saida.println("<table style=\"border-collapse: collapse; border: 1px solid black; text-align: center; width: 80%; table-layout: fixed\">");
         this.saida.println("<tr style=\"border: 1px solid black; background-color: #8B0000; color: white;\">");
         this.saida.println("<th style=\"border: 1px solid black;\">" + msg + " </th>");
         this.saida.println("</tr>");
-        this.saida.println("<tr>");
+    }
+
+    public void Final() {
+        this.saida.println("</table>");
+        this.saida.println("</center>");
+        this.saida.println("</font>");
+        this.saida.println("</body>");
+        this.saida.println("</html>");
     }
 }

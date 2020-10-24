@@ -1,3 +1,9 @@
+/*
+* Autora: Luciana Oliveira de Souza Gomes
+* Autor: Rafael Rodrigues Bordin
+* Autor: Vinicius de Oliveira Peixoto
+*/
+
 grammar HP;
 
 /* PALAVRAS RESERVADAS */

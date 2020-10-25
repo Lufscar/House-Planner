@@ -1,3 +1,9 @@
+/*
+* Autora: Luciana Oliveira de Souza Gomes
+* Autor: Rafael Rodrigues Bordin
+* Autor: Vinicius de Oliveira Peixoto
+*/
+
 grammar HP;
 
 /* PALAVRAS RESERVADAS */
@@ -16,11 +22,12 @@ OPENPAR:        '(';
 CLOSEPAR:       ')';
 
 map:
-	CONSTRUCTION BLOCKNAME IS declaration* (build* cmdBuildHouse)* EOF;
+	CONSTRUCTION BLOCKNAME IS declaration* body* EOF;
 
 declaration:
 	DECLARE IDENTIFIER AS type SEMICOLON	|
-	DEFINE CONSTANT AS NUMBER SEMICOLON	|
+    DECLARE IDENTIFIER OPENPAR NUMBER CLOSEPAR AS type SEMICOLON |
+	DEFINE CONSTANT AS NUMBER		|
 	SET USERTYPE SEMICOLON;
 	
 IDENTIFIER:
@@ -38,6 +45,9 @@ BLOCKNAME:
 type:
 	newType	|
 	basicType;
+
+body:
+    build* cmdBuildHouse;
 
 basicType:
 	'Bedroom'		|

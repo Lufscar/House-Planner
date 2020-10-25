@@ -1,5 +1,6 @@
 /*
 * Autora: Luciana Oliveira de Souza Gomes
+* Autor: Rafael Rodrigues Bordin
 * Autor: Vinicius de Oliveira Peixoto
 */
 
@@ -9,7 +10,7 @@ import java.util.Collection;
 import java.util.HashMap;
 
 public class TabelaDeSimbolos {
-    private HashMap<String, EntradaTabelaDeSimbolos> tabelaDeSimbolos;
+    private final HashMap<String, EntradaTabelaDeSimbolos> tabelaDeSimbolos;
     
     public TabelaDeSimbolos(){
         tabelaDeSimbolos = new HashMap<>();

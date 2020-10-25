@@ -7,8 +7,8 @@
 package br.ufscar.dc.compiladores.house.planner;
 
 class Out {
-    StringBuffer cont; //content
-    boolean mod; //modified
+    StringBuffer cont;  //content
+    boolean mod;        //modified
 
     public Out() {
         cont = new StringBuffer();

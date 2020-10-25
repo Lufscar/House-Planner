@@ -12,7 +12,7 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 // Classe Visitor do programa
 public class Builder extends HPBaseVisitor {
     
-    Out saida = new Out();                      // Gera saída em C
+    Out saida = new Out();                      // Gera saída
     Escopos escoposAninhados = new Escopos();   // Escopo das variáveis
     boolean noError = true;                     // Checa se ouve 
 

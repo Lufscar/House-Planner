@@ -41,8 +41,6 @@ public class MeuErrorListener extends BaseErrorListener {
         msg = "Linha " + line + ": erro sintatico proximo a " + str_token[1];
 
         //Escrita de msg no arquivo de saída
-        System.out.println(msg);
-        //b.Results(msg);
         this.saida.println("<table style=\"border-collapse: collapse; border: 1px solid black; text-align: center; width: 80%; table-layout: fixed\">");
         this.saida.println("<tr style=\"border: 1px solid black; background-color: #8B0000; color: white;\">");
         this.saida.println("<th style=\"border: 1px solid black;\">" + msg + " </th>");

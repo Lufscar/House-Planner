@@ -1,5 +1,6 @@
 /*
 * Autora: Luciana Oliveira de Souza Gomes
+* Autor: Rafael Rodrigues Bordin
 * Autor: Vinicius de Oliveira Peixoto
  */
 package br.ufscar.dc.compiladores.house.planner;
@@ -36,10 +37,12 @@ public class Planner {
             lex.reset();
             CommonTokenStream tokens = new CommonTokenStream(lex);
             HPParser psr = new HPParser(tokens);
-            HPParser.MapContext map = psr.map();
             MeuErrorListener error = new MeuErrorListener(saida);
             psr.addErrorListener(error);
-            double val = b.visitMap(map);
+            HPParser.MapContext map = psr.map();
+            if(error.noError){
+                double val = b.visitMap(map);
+            }
         }
 
         //Gerador de código html
